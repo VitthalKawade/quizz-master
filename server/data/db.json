@@ -1,0 +1,935 @@
+{
+  "users": [
+    {
+      "id": "user_student_1",
+      "name": "Alex Johnson",
+      "email": "student@quiz.com",
+      "password": "student123",
+      "role": "student",
+      "avatar": "🎓",
+      "isGoogleAuth": false,
+      "createdAt": "2026-08-20T10:00:00.000Z"
+    },
+    {
+      "id": "user_admin_1",
+      "name": "Dr. Sarah Mitchell",
+      "email": "admin@quiz.com",
+      "password": "admin123",
+      "role": "admin",
+      "avatar": "⚡",
+      "isGoogleAuth": false,
+      "createdAt": "2026-08-15T08:30:00.000Z"
+    },
+    {
+      "id": "user_mthlzg4rzggz",
+      "name": "Anu",
+      "email": "aniket@gmail.com",
+      "password": "google_oauth_1788203148651_g88s5rgn037",
+      "role": "student",
+      "avatar": "🎓",
+      "isGoogleAuth": true,
+      "googleId": "gid_1788203148651",
+      "createdAt": "2026-08-31T19:05:48.651Z"
+    },
+    {
+      "id": "user_mthlzg6i6uad",
+      "name": "sanket",
+      "email": "sanket@gmail.com",
+      "password": "google_oauth_1788203148714_g0ymbx10z5p",
+      "role": "student",
+      "avatar": "🎓",
+      "isGoogleAuth": true,
+      "googleId": "gid_1788203148714",
+      "createdAt": "2026-08-31T19:05:48.714Z"
+    },
+    {
+      "id": "user_mthlzg735uqf",
+      "name": "Raj",
+      "email": "raj@gmail.com",
+      "password": "google_oauth_1788203148735_8kcuvsnuvqe",
+      "role": "student",
+      "avatar": "💡",
+      "isGoogleAuth": true,
+      "googleId": "gid_1788203148735",
+      "createdAt": "2026-08-31T19:05:48.735Z"
+    },
+    {
+      "id": "user_mthm150kydc0",
+      "name": "ram",
+      "email": "ram@gmail.com",
+      "password": "$2a$10$Xk/OAkE9e5tA4.D6ARkywOauQ5B.CGhnVe/1revxSKWdTpbHTNEJe",
+      "role": "student",
+      "avatar": "🌟",
+      "isGoogleAuth": false,
+      "createdAt": "2026-08-31T19:07:07.557Z"
+    },
+    {
+      "id": "user_mthm4tjlre1b",
+      "name": "mayuri",
+      "email": "mayuri@gmail.com",
+      "password": "$2a$10$9RQcOrERO//qfz3JC6a8FuObTbnQy0Vmurg2/lhBFyrlW8XLDSilm",
+      "role": "student",
+      "avatar": "🦁",
+      "isGoogleAuth": false,
+      "createdAt": "2026-08-31T19:09:59.313Z"
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "quiz-java-core",
+      "title": "Java Programming Fundamentals",
+      "category": "Programming",
+      "testCode": "JAVA-101",
+      "password": "",
+      "icon": "☕",
+      "difficulty": "Medium",
+      "durationMinutes": 15,
+      "passPercentage": 60,
+      "totalMarks": 20,
+      "description": "Test your understanding of Java OOPs, JVM architecture, keywords, collections, and exception handling.",
+      "questions": [
+        {
+          "id": "q_j1",
+          "question": "Which keyword is used to inherit a class in Java?",
+          "options": [
+            "implement",
+            "extends",
+            "inherit",
+            "super"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "The 'extends' keyword is used in Java to inherit the properties and methods of a parent class into a child class."
+        },
+        {
+          "id": "q_j2",
+          "question": "What is the size of an int data type in Java?",
+          "options": [
+            "16 bits (2 bytes)",
+            "32 bits (4 bytes)",
+            "64 bits (8 bytes)",
+            "Depends on the platform"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "In Java, an 'int' is always 32 bits (4 bytes) regardless of the underlying operating system or processor architecture."
+        },
+        {
+          "id": "q_j3",
+          "question": "Which of these is NOT a valid Java access modifier?",
+          "options": [
+            "protected",
+            "private",
+            "friendly",
+            "public"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Java has public, private, and protected modifiers (and default package-private when no modifier is specified). 'friendly' is not a Java keyword."
+        },
+        {
+          "id": "q_j4",
+          "question": "Which method is called automatically when an object is created?",
+          "options": [
+            "main()",
+            "finalize()",
+            "Constructor",
+            "init()"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "A Constructor is a special method that is invoked automatically when an instance of a class is created using the 'new' keyword."
+        },
+        {
+          "id": "q_j5",
+          "question": "What is the purpose of the 'finally' block in Java exception handling?",
+          "options": [
+            "To catch specific checked exceptions",
+            "To execute important code such as closing resources whether an exception is handled or not",
+            "To rethrow exceptions to the calling method",
+            "To terminate the Java Virtual Machine immediately"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "The 'finally' block always executes after try/catch blocks, ensuring cleanup code (like closing streams or db connections) is guaranteed to run."
+        },
+        {
+          "id": "q_j6",
+          "question": "Which collection class allows key-value pairs and does not allow duplicate keys?",
+          "options": [
+            "ArrayList",
+            "HashSet",
+            "HashMap",
+            "LinkedList"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "HashMap stores elements as key-value pairs where each key must be unique. If a duplicate key is inserted, it overrides the existing value."
+        },
+        {
+          "id": "q_j7",
+          "question": "Can an abstract class have constructors in Java?",
+          "options": [
+            "Yes, to initialize fields when a subclass instance is created",
+            "No, because abstract classes cannot be instantiated",
+            "Only if the constructor is declared as private",
+            "Only in Java 8 and higher"
+          ],
+          "correctAnswer": 0,
+          "marks": 2,
+          "explanation": "Yes! Abstract classes can have constructors. They are called via super() from subclass constructors when a concrete subclass is instantiated."
+        },
+        {
+          "id": "q_j8",
+          "question": "Which feature of OOP is demonstrated by having multiple methods in the same class with the same name but different parameters?",
+          "options": [
+            "Method Overriding",
+            "Method Overloading",
+            "Encapsulation",
+            "Abstraction"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Method Overloading (compile-time polymorphism) allows multiple methods with the same name but different parameter lists within the same class."
+        },
+        {
+          "id": "q_j9",
+          "question": "What does the 'static' keyword on a variable signify?",
+          "options": [
+            "The variable cannot be modified once assigned",
+            "The variable belongs to the class rather than individual instances",
+            "The variable is stored on the Stack memory",
+            "The variable is only accessible from within the same package"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "A static variable is shared among all instances of a class and belongs to the class itself rather than any individual object."
+        },
+        {
+          "id": "q_j10",
+          "question": "Which of the following creates a thread in Java?",
+          "options": [
+            "Extending the Thread class or implementing Runnable interface",
+            "Importing java.lang.Process",
+            "Calling System.runThread()",
+            "Using the 'synchronized' keyword on a class"
+          ],
+          "correctAnswer": 0,
+          "marks": 2,
+          "explanation": "Threads in Java are created either by extending java.lang.Thread or implementing java.lang.Runnable (or Callable with ExecutorService)."
+        }
+      ],
+      "createdAt": "2026-08-31T18:37:29.449Z"
+    },
+    {
+      "id": "quiz-general-knowledge",
+      "title": "World General Knowledge & Trivia",
+      "category": "General Knowledge",
+      "testCode": "GK-202",
+      "password": "",
+      "icon": "🌐",
+      "difficulty": "Easy",
+      "durationMinutes": 10,
+      "passPercentage": 50,
+      "totalMarks": 20,
+      "description": "Challenge your awareness on world geography, notable history, famous landmarks, and international facts.",
+      "questions": [
+        {
+          "id": "q_gk1",
+          "question": "Which is the largest ocean on Earth?",
+          "options": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "The Pacific Ocean is the largest and deepest ocean basin on Earth, covering more than 30% of the Earth's total surface area."
+        },
+        {
+          "id": "q_gk2",
+          "question": "Who is known as the inventor of the World Wide Web (WWW)?",
+          "options": [
+            "Bill Gates",
+            "Tim Berners-Lee",
+            "Steve Jobs",
+            "Alan Turing"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Sir Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN in Switzerland."
+        },
+        {
+          "id": "q_gk3",
+          "question": "What is the capital city of Australia?",
+          "options": [
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Brisbane"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Canberra was chosen as the capital city of Australia in 1908 as a compromise between rival cities Sydney and Melbourne."
+        },
+        {
+          "id": "q_gk4",
+          "question": "Which country is home to the ancient Wonder of the World: The Great Pyramids of Giza?",
+          "options": [
+            "Greece",
+            "Egypt",
+            "Jordan",
+            "Peru"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "The Pyramids of Giza are located on the Giza plateau near Cairo, Egypt."
+        },
+        {
+          "id": "q_gk5",
+          "question": "Which is the longest river in the world?",
+          "options": [
+            "Amazon River",
+            "Nile River",
+            "Yangtze River",
+            "Mississippi River"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "The Nile River in northeastern Africa is traditionally considered the longest river in the world, spanning approximately 6,650 km (4,132 miles)."
+        },
+        {
+          "id": "q_gk6",
+          "question": "In what year did the Apollo 11 mission successfully land astronauts on the Moon?",
+          "options": [
+            "1965",
+            "1969",
+            "1972",
+            "1975"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Neil Armstrong and Buzz Aldrin landed the Apollo 11 Lunar Module on the Moon on July 20, 1969."
+        },
+        {
+          "id": "q_gk7",
+          "question": "What is the hardest natural substance known on Earth?",
+          "options": [
+            "Titanium",
+            "Diamond",
+            "Graphene",
+            "Tungsten"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Diamond is the hardest naturally occurring mineral, scoring a 10 (maximum) on the Mohs hardness scale."
+        },
+        {
+          "id": "q_gk8",
+          "question": "Which continent is known as the 'Dark Continent' historically?",
+          "options": [
+            "Asia",
+            "Africa",
+            "South America",
+            "Antarctica"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Africa was historically referred to as the 'Dark Continent' by 19th-century Europeans due to its unexplored interior terrain."
+        },
+        {
+          "id": "q_gk9",
+          "question": "How many time zones are there in Russia?",
+          "options": [
+            "7",
+            "9",
+            "11",
+            "13"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Spanning across Eastern Europe and Northern Asia, Russia currently spans 11 standard time zones (UTC+2 to UTC+12)."
+        },
+        {
+          "id": "q_gk10",
+          "question": "Which currency is used in Japan?",
+          "options": [
+            "Yuan",
+            "Won",
+            "Yen",
+            "Ringgit"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "The Japanese Yen (¥ / JPY) is the official legal tender of Japan."
+        }
+      ],
+      "createdAt": "2026-08-31T18:37:29.452Z"
+    },
+    {
+      "id": "quiz-mathematics",
+      "title": "Mathematics & Quantitative Aptitude",
+      "category": "Mathematics",
+      "testCode": "MATH-303",
+      "password": "",
+      "icon": "📐",
+      "difficulty": "Hard",
+      "durationMinutes": 20,
+      "passPercentage": 60,
+      "totalMarks": 20,
+      "description": "Solve problems in arithmetic, percentages, algebraic equations, probability, and speed-time-distance.",
+      "questions": [
+        {
+          "id": "q_m1",
+          "question": "If a shirt marked at $80 is sold with a 25% discount, what is the selling price?",
+          "options": [
+            "$55",
+            "$60",
+            "$64",
+            "$70"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Discount = 25% of $80 = 0.25 * 80 = $20. Selling Price = $80 - $20 = $60."
+        },
+        {
+          "id": "q_m2",
+          "question": "What is the value of x if: 3x + 15 = 45?",
+          "options": [
+            "5",
+            "10",
+            "12",
+            "15"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Subtract 15 from both sides: 3x = 30. Divide by 3: x = 10."
+        },
+        {
+          "id": "q_m3",
+          "question": "What is the probability of rolling an even number on a standard fair 6-sided die?",
+          "options": [
+            "1/6",
+            "1/3",
+            "1/2",
+            "2/3"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Even numbers on a die are 2, 4, 6 (3 outcomes). Total possible outcomes = 6. Probability = 3/6 = 1/2 (50%)."
+        },
+        {
+          "id": "q_m4",
+          "question": "A train travels at 72 km/h. How many meters does it travel in 10 seconds?",
+          "options": [
+            "150 meters",
+            "200 meters",
+            "250 meters",
+            "300 meters"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Convert km/h to m/s: 72 * (5/18) = 20 m/s. Distance in 10 seconds = 20 m/s * 10 s = 200 meters."
+        },
+        {
+          "id": "q_m5",
+          "question": "What is the square root of 625?",
+          "options": [
+            "15",
+            "25",
+            "35",
+            "45"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "25 * 25 = 625. Hence √625 = 25."
+        },
+        {
+          "id": "q_m6",
+          "question": "What is the next number in the sequence: 2, 6, 12, 20, 30, ___?",
+          "options": [
+            "36",
+            "40",
+            "42",
+            "48"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Differences between terms: +4, +6, +8, +10. The next difference is +12. Thus 30 + 12 = 42 (also n*(n+1) formula: 6*7 = 42)."
+        },
+        {
+          "id": "q_m7",
+          "question": "If the radius of a circle is doubled, by what factor does its area increase?",
+          "options": [
+            "2 times",
+            "4 times",
+            "8 times",
+            "Remains the same"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Area of a circle is A = π*r². If radius becomes 2r, new area = π*(2r)² = 4πr² (increases by a factor of 4)."
+        },
+        {
+          "id": "q_m8",
+          "question": "If 5 workers can build a wall in 12 days, how many days will 10 workers take to build the same wall?",
+          "options": [
+            "4 days",
+            "6 days",
+            "8 days",
+            "10 days"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Total Work = 5 workers * 12 days = 60 worker-days. Days for 10 workers = 60 / 10 = 6 days."
+        },
+        {
+          "id": "q_m9",
+          "question": "What is the sum of interior angles in a hexagon (6-sided polygon)?",
+          "options": [
+            "360°",
+            "540°",
+            "720°",
+            "900°"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Formula for interior angle sum = (n - 2) * 180°. For n=6: (6 - 2) * 180° = 4 * 180° = 720°."
+        },
+        {
+          "id": "q_m10",
+          "question": "Solve for log₁₀(1000):",
+          "options": [
+            "1",
+            "2",
+            "3",
+            "10"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "10³ = 1000, so log₁₀(1000) = 3."
+        }
+      ],
+      "createdAt": "2026-08-31T18:37:29.455Z"
+    },
+    {
+      "id": "quiz-science",
+      "title": "General Science & Everyday Technology",
+      "category": "Science",
+      "testCode": "SCI-404",
+      "password": "",
+      "icon": "🔬",
+      "difficulty": "Medium",
+      "durationMinutes": 12,
+      "passPercentage": 55,
+      "totalMarks": 20,
+      "description": "Explore questions on basic physics principles, chemical reactions, cell biology, and modern computing devices.",
+      "questions": [
+        {
+          "id": "q_s1",
+          "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
+          "options": [
+            "Oxygen",
+            "Carbon Dioxide",
+            "Nitrogen",
+            "Hydrogen"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Plants absorb Carbon Dioxide (CO₂) and water, and use sunlight energy to synthesize glucose and release Oxygen."
+        },
+        {
+          "id": "q_s2",
+          "question": "What is the chemical formula for ordinary table salt?",
+          "options": [
+            "NaCl",
+            "KCl",
+            "NaOH",
+            "CaCO3"
+          ],
+          "correctAnswer": 0,
+          "marks": 2,
+          "explanation": "Table salt is Sodium Chloride, chemical formula NaCl."
+        },
+        {
+          "id": "q_s3",
+          "question": "Which organelle is famously known as the 'Powerhouse of the Cell'?",
+          "options": [
+            "Nucleus",
+            "Ribosome",
+            "Mitochondria",
+            "Endoplasmic Reticulum"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Mitochondria produce the majority of cellular energy in the form of Adenosine Triphosphate (ATP)."
+        },
+        {
+          "id": "q_s4",
+          "question": "What is the speed of light in a vacuum approximately?",
+          "options": [
+            "300,000 km/s",
+            "150,000 km/s",
+            "3,000 km/s",
+            "30,000 km/s"
+          ],
+          "correctAnswer": 0,
+          "marks": 2,
+          "explanation": "The speed of light in a vacuum is approximately 299,792 km/s (or ~300,000 km/s / 3 × 10⁸ m/s)."
+        },
+        {
+          "id": "q_s5",
+          "question": "Which element is the most abundant in Earth's atmosphere?",
+          "options": [
+            "Oxygen (~21%)",
+            "Carbon Dioxide (~0.04%)",
+            "Nitrogen (~78%)",
+            "Argon (~0.93%)"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Nitrogen gas makes up roughly 78% of Earth's atmosphere by volume."
+        },
+        {
+          "id": "q_s6",
+          "question": "What type of wave is sound?",
+          "options": [
+            "Transverse electromagnetic wave",
+            "Longitudinal mechanical wave",
+            "Gravitational wave",
+            "Surface water wave"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Sound is a mechanical longitudinal compression wave that requires a physical medium (solid, liquid, gas) to propagate."
+        },
+        {
+          "id": "q_s7",
+          "question": "What is the unit of electrical resistance?",
+          "options": [
+            "Ampere",
+            "Volt",
+            "Ohm",
+            "Watt"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "The standard SI unit of electrical resistance is the Ohm (represented by the Greek letter Ω)."
+        },
+        {
+          "id": "q_s8",
+          "question": "Which component of blood is primarily responsible for transporting oxygen?",
+          "options": [
+            "White Blood Cells",
+            "Red Blood Cells (Hemoglobin)",
+            "Platelets",
+            "Blood Plasma"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Red blood cells contain the iron-rich protein hemoglobin, which binds oxygen molecules in the lungs and delivers them to bodily tissues."
+        },
+        {
+          "id": "q_s9",
+          "question": "What is the pH level of pure, neutral water at 25°C?",
+          "options": [
+            "0",
+            "5",
+            "7",
+            "14"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "Pure water has a neutral pH of 7. Values below 7 are acidic, while values above 7 are basic/alkaline."
+        },
+        {
+          "id": "q_s10",
+          "question": "Which planet in our solar system is known as the 'Red Planet'?",
+          "options": [
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Mercury"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Mars is called the Red Planet because iron minerals in its soil oxidize (rust), giving the surface a reddish appearance."
+        }
+      ],
+      "createdAt": "2026-08-31T18:37:29.457Z"
+    },
+    {
+      "id": "quiz-english-grammar",
+      "title": "English Grammar & Vocabulary",
+      "category": "English",
+      "testCode": "ENG-505",
+      "password": "",
+      "icon": "📚",
+      "difficulty": "Easy",
+      "durationMinutes": 10,
+      "passPercentage": 60,
+      "totalMarks": 20,
+      "description": "Sharpen your verbal ability, identifying parts of speech, correct verb tenses, synonyms, and idiom usage.",
+      "questions": [
+        {
+          "id": "q_e1",
+          "question": "Identify the correct sentence with proper subject-verb agreement:",
+          "options": [
+            "Neither of the boys were present yesterday.",
+            "Neither of the boys was present yesterday.",
+            "Neither of the boys are present yesterday.",
+            "Neither of the boys have been present yesterday."
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "'Neither' is a singular indefinite pronoun and takes the singular past verb 'was'."
+        },
+        {
+          "id": "q_e2",
+          "question": "What is the synonym of the word 'BENEVOLENT'?",
+          "options": [
+            "Hostile",
+            "Kind and generous",
+            "Greedy",
+            "Indifferent"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Benevolent means well-meaning, kind-hearted, and generous (opposed to malevolent)."
+        },
+        {
+          "id": "q_e3",
+          "question": "Choose the correct preposition: 'She has been studying in this college ____ 2021.'",
+          "options": [
+            "for",
+            "since",
+            "from",
+            "during"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "We use 'since' to denote a specific starting point in time (since 2021), whereas 'for' denotes a duration of time (for 3 years)."
+        },
+        {
+          "id": "q_e4",
+          "question": "What does the idiom 'Bite the bullet' mean?",
+          "options": [
+            "To eat something hard and chewy",
+            "To face a difficult or unpleasant situation with courage",
+            "To shoot a weapon unexpectedly",
+            "To admit complete defeat"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "'Bite the bullet' means to endure a painful or unavoidable situation that one has been putting off."
+        },
+        {
+          "id": "q_e5",
+          "question": "Which of the following is an antonym of 'OBSOLETE'?",
+          "options": [
+            "Outdated",
+            "Modern",
+            "Ancient",
+            "Broken"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Obsolete means out of date or no longer produced/used. Its opposite is 'modern' or 'current'."
+        },
+        {
+          "id": "q_e6",
+          "question": "Identify the part of speech of the capitalized word: 'She spoke ELOQUENTLY at the conference.'",
+          "options": [
+            "Noun",
+            "Verb",
+            "Adverb",
+            "Adjective"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "'Eloquently' is an adverb because it modifies how the action was performed (spoke eloquently)."
+        },
+        {
+          "id": "q_e7",
+          "question": "Choose the correctly spelled word:",
+          "options": [
+            "Accomodation",
+            "Accommodation",
+            "Acommodation",
+            "Accommadation"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "The correct spelling is 'Accommodation' with double 'c' and double 'm'."
+        },
+        {
+          "id": "q_e8",
+          "question": "Select the sentence in passive voice:",
+          "options": [
+            "The chef prepared a wonderful meal.",
+            "A wonderful meal was prepared by the chef.",
+            "The chef is preparing a wonderful meal.",
+            "The chef will prepare a wonderful meal."
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "In passive voice, the object ('a wonderful meal') becomes the subject receiving the action performed by the agent ('by the chef')."
+        },
+        {
+          "id": "q_e9",
+          "question": "What is a group of lions called?",
+          "options": [
+            "A pack",
+            "A pride",
+            "A herd",
+            "A flock"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "A collective noun for a family or group of lions is a 'pride'."
+        },
+        {
+          "id": "q_e10",
+          "question": "Fill in the blank: 'If I ____ rich, I would travel around the world.'",
+          "options": [
+            "was",
+            "were",
+            "am",
+            "will be"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "In second conditional statements expressing hypothetical/imaginary situations (subjunctive mood), 'were' is grammatically used for all subjects."
+        }
+      ],
+      "createdAt": "2026-08-31T18:37:29.461Z"
+    }
+  ],
+  "attempts": [
+    {
+      "id": "att_1",
+      "userId": "user_student_1",
+      "userName": "Alex Johnson",
+      "userEmail": "",
+      "userAvatar": "🎓",
+      "quizId": "quiz-java-core",
+      "quizTitle": "Java Programming Fundamentals",
+      "category": "Programming",
+      "testCode": "",
+      "difficulty": "Medium",
+      "score": 18,
+      "totalMarks": 20,
+      "percentage": 90,
+      "passed": true,
+      "passPercentage": 60,
+      "totalQuestions": 10,
+      "correctCount": 9,
+      "wrongCount": 1,
+      "unansweredCount": 0,
+      "timeSpentSeconds": 420,
+      "answersBreakdown": [],
+      "completedAt": "2026-08-30T14:22:00.000Z"
+    },
+    {
+      "id": "att_2",
+      "userId": "user_seed_2",
+      "userName": "Emma Watson",
+      "userEmail": "",
+      "userAvatar": "🌟",
+      "quizId": "quiz-java-core",
+      "quizTitle": "Java Programming Fundamentals",
+      "category": "Programming",
+      "testCode": "",
+      "difficulty": "Medium",
+      "score": 20,
+      "totalMarks": 20,
+      "percentage": 100,
+      "passed": true,
+      "passPercentage": 60,
+      "totalQuestions": 10,
+      "correctCount": 10,
+      "wrongCount": 0,
+      "unansweredCount": 0,
+      "timeSpentSeconds": 380,
+      "answersBreakdown": [],
+      "completedAt": "2026-08-29T11:15:00.000Z"
+    },
+    {
+      "id": "att_3",
+      "userId": "user_seed_3",
+      "userName": "David Miller",
+      "userEmail": "",
+      "userAvatar": "🚀",
+      "quizId": "quiz-general-knowledge",
+      "quizTitle": "World General Knowledge & Trivia",
+      "category": "General Knowledge",
+      "testCode": "",
+      "difficulty": "Medium",
+      "score": 16,
+      "totalMarks": 20,
+      "percentage": 80,
+      "passed": true,
+      "passPercentage": 60,
+      "totalQuestions": 10,
+      "correctCount": 8,
+      "wrongCount": 2,
+      "unansweredCount": 0,
+      "timeSpentSeconds": 290,
+      "answersBreakdown": [],
+      "completedAt": "2026-08-30T09:40:00.000Z"
+    },
+    {
+      "id": "att_4",
+      "userId": "user_seed_4",
+      "userName": "Sophia Chen",
+      "userEmail": "",
+      "userAvatar": "💡",
+      "quizId": "quiz-mathematics",
+      "quizTitle": "Mathematics & Quantitative Aptitude",
+      "category": "Mathematics",
+      "testCode": "",
+      "difficulty": "Medium",
+      "score": 20,
+      "totalMarks": 20,
+      "percentage": 100,
+      "passed": true,
+      "passPercentage": 60,
+      "totalQuestions": 10,
+      "correctCount": 10,
+      "wrongCount": 0,
+      "unansweredCount": 0,
+      "timeSpentSeconds": 510,
+      "answersBreakdown": [],
+      "completedAt": "2026-08-30T16:05:00.000Z"
+    },
+    {
+      "id": "att_5",
+      "userId": "user_seed_5",
+      "userName": "Liam O'Connor",
+      "userEmail": "",
+      "userAvatar": "🔥",
+      "quizId": "quiz-science",
+      "quizTitle": "General Science & Everyday Technology",
+      "category": "Science",
+      "testCode": "",
+      "difficulty": "Medium",
+      "score": 14,
+      "totalMarks": 20,
+      "percentage": 70,
+      "passed": true,
+      "passPercentage": 60,
+      "totalQuestions": 10,
+      "correctCount": 7,
+      "wrongCount": 3,
+      "unansweredCount": 0,
+      "timeSpentSeconds": 340,
+      "answersBreakdown": [],
+      "completedAt": "2026-08-31T08:12:00.000Z"
+    }
+  ],
+  "settings": {
+    "theme": "dark",
+    "sound": true
+  }
+}

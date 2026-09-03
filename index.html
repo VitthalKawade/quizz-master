@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizzMaster Pro - Online Assessment & Quiz Platform</title>
+  <meta name="description" content="A feature-rich online quiz test platform with timed tests, multi-category assessments, instant results, certificates, leaderboards, and administrative tools.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/views.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- App Shell -->
+  <div id="app-root">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar" id="app-navbar">
+      <div class="nav-container">
+        <div class="nav-brand" id="nav-brand-logo" title="QuizzMaster">
+          <div class="brand-icon">⚡</div>
+          <span class="brand-title">QuizzMaster</span>
+        </div>
+
+        <!-- Live Assessment Indicator (Shown in Exam Mode) -->
+        <div class="nav-exam-badge auth-exam-only" style="display: none;">
+          <span class="pulse-dot"></span>
+          <span>ASSESSMENT IN PROGRESS</span>
+        </div>
+
+        <ul class="nav-links auth-nav-links">
+          <li class="nav-item auth-only-logged-in" data-nav="dashboard" data-view="dashboard" style="display: none;">
+            <span>🏠</span> Dashboard
+          </li>
+          <li class="nav-item auth-only-logged-in" data-nav="leaderboard" data-view="leaderboard" style="display: none;">
+            <span>🏆</span> Leaderboard
+          </li>
+          <li class="nav-item auth-only-logged-in" data-nav="history" data-view="history" style="display: none;">
+            <span>📜</span> My History
+          </li>
+        </ul>
+
+        <div class="nav-actions">
+          <!-- Audio Toggle -->
+          <button id="btn-toggle-sound" class="btn btn-secondary btn-icon btn-sm" title="Toggle Sound FX">🔊</button>
+          <!-- Theme Toggle -->
+          <button id="btn-toggle-theme" class="btn btn-secondary btn-icon btn-sm" title="Toggle Theme">☀️</button>
+
+          <!-- Logged Out Actions -->
+          <div class="auth-only-logged-out" style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-secondary btn-sm" data-nav="auth">Login</button>
+            <button class="btn btn-primary btn-sm" data-nav="auth" onclick="window.app.switchAuthTab('register')">Register</button>
+          </div>
+
+          <!-- Logged In Profile Chip -->
+          <div class="auth-only-logged-in auth-nav-user" style="display: none; align-items: center; gap: 0.6rem;">
+            <div id="btn-edit-profile-nav" class="user-profile-chip" title="Click to Edit Profile">
+              <div id="nav-user-avatar" class="user-avatar-badge">🎓</div>
+              <span id="nav-user-name" class="user-chip-name">Student</span>
+              <span style="font-size: 0.75rem; opacity: 0.7;">✏️</span>
+            </div>
+            <button id="btn-logout" class="btn btn-secondary btn-sm" title="Logout">Logout</button>
+          </div>
+
+          <!-- End Test Button (Visible in Live Exam Mode) -->
+          <button id="btn-nav-end-test" class="btn btn-danger btn-sm auth-exam-only" style="display: none; font-weight: 700; gap: 0.35rem;" title="End or Submit Test">
+            ⏹️ End Test
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- ====================================================================
+           VIEW 1: HERO / LANDING PAGE
+           ==================================================================== -->
+      <section id="view-hero" class="view-container active">
+        <div class="hero-section">
+          <div class="hero-pill">✨ Ultimate Online Quiz & Assessment Platform</div>
+          <h1 class="hero-title">
+            Test Your Knowledge. <br>
+            <span class="hero-title-gradient">Master New Skills.</span>
+          </h1>
+          <p class="hero-description">
+            Experience timed, interactive quizzes across Programming, General Knowledge, Mathematics, Science, and English. Get instant analytics, earn verifiable certificates, and climb the leaderboard!
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-glow btn-lg" data-nav="auth">
+              Get Started Free 🚀
+            </button>
+            <button class="btn btn-secondary btn-lg" id="btn-hero-google" style="gap: 0.6rem;">
+              <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+              </svg>
+              Sign in with Google / Gmail
+            </button>
+          </div>
+
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon-box">⏱️</div>
+              <h3>Precision Timed Quizzes</h3>
+              <p>Realistic countdown timers with automatic submission and low-time notifications.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box">📊</div>
+              <h3>Instant Performance Analytics</h3>
+              <p>Real-time score calculations, accuracy percentage, and full question explanations.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box">🏆</div>
+              <h3>Dynamic Leaderboards</h3>
+              <p>Compete with fellow scholars globally and filter top performers by quiz category.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon-box">🎓</div>
+              <h3>Verified Certificates</h3>
+              <p>Download and print high-resolution certificates of completion for passing scores.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 2: AUTHENTICATION (LOGIN & REGISTER)
+           ==================================================================== -->
+      <section id="view-auth" class="view-container">
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-header">
+              <h2>Welcome to QuizzMaster</h2>
+              <p>Sign in to your account or create a new profile</p>
+            </div>
+
+            <!-- Tab Switcher -->
+            <div class="tab-group" style="margin-bottom: 1.5rem;">
+              <button class="tab-btn auth-tab-btn active" data-tab="login" style="flex: 1;">Login</button>
+              <button class="tab-btn auth-tab-btn" data-tab="register" style="flex: 1;">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="form-login">
+              <div class="form-group">
+                <label class="form-label" for="login-email">Email Address</label>
+                <input type="email" id="login-email" class="form-input" placeholder="e.g. student@quiz.com" required value="student@quiz.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="login-password">Password</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="login-password" class="form-input" placeholder="Enter password" required value="student123">
+                  <button type="button" class="password-toggle-btn" data-target="login-password" title="Show password" aria-label="Show password">
+                    <svg class="icon-eye-hidden" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <svg class="icon-eye-visible" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Sign In 🔑</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="form-register" style="display: none;">
+              <div class="form-group">
+                <label class="form-label" for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" class="form-input" placeholder="e.g. John Doe" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-email">Email Address</label>
+                <input type="email" id="reg-email" class="form-input" placeholder="e.g. john@example.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-password">Password (min 6 characters)</label>
+                <div class="password-input-wrapper">
+                  <input type="password" id="reg-password" class="form-input" placeholder="Choose a strong password" minlength="6" required>
+                  <button type="button" class="password-toggle-btn" data-target="reg-password" title="Show password" aria-label="Show password">
+                    <svg class="icon-eye-hidden" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <svg class="icon-eye-visible" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-role">Account Role</label>
+                <select id="reg-role" class="form-select">
+                  <option value="student">Student / Scholar</option>
+                  <option value="admin">Administrator / Educator</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Choose Avatar</label>
+                <input type="hidden" id="reg-avatar-input" value="🎓">
+                <div class="avatar-picker-grid">
+                  <div class="avatar-option selected" data-avatar="🎓">🎓</div>
+                  <div class="avatar-option" data-avatar="🚀">🚀</div>
+                  <div class="avatar-option" data-avatar="💡">💡</div>
+                  <div class="avatar-option" data-avatar="🌟">🌟</div>
+                  <div class="avatar-option" data-avatar="⚡">⚡</div>
+                  <div class="avatar-option" data-avatar="🦁">🦁</div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-glow" style="width: 100%; margin-top: 0.5rem;">Create Account ✨</button>
+            </form>
+
+            <!-- Divider -->
+            <div class="auth-divider">
+              <span>OR</span>
+            </div>
+
+            <!-- Google / Gmail Sign In -->
+            <div class="social-auth-box">
+              <button type="button" id="btn-google-login" class="btn btn-google" title="Sign in with Google / Gmail">
+                <svg class="google-icon" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                </svg>
+                <span>Continue with Google / Gmail</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 3: STUDENT DASHBOARD
+           ==================================================================== -->
+      <section id="view-dashboard" class="view-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+          <div class="user-welcome-box">
+            <div id="dash-user-avatar" class="user-welcome-avatar">🎓</div>
+            <div>
+              <h2>Welcome back, <span id="dash-user-name">Scholar</span>!</h2>
+              <p>Select a quiz below to challenge your intellect and earn scores.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button id="btn-dash-create-quiz" class="btn btn-primary auth-only-admin" style="display: none;">+ Create New Quiz 📝</button>
+            <button id="btn-dash-manage-quizzes" class="btn btn-secondary auth-only-admin" style="display: none;">⚙️ Manage Quizzes</button>
+            <button id="btn-dash-backup-data" class="btn btn-secondary auth-only-admin" style="display: none;">💾 Data Backup</button>
+            <button id="btn-edit-profile-dash" class="btn btn-secondary">✏️ Edit Profile</button>
+            <button class="btn btn-secondary" data-nav="leaderboard">🏆 View Rankings</button>
+            <button class="btn btn-secondary" data-nav="history">📜 Past Attempts</button>
+          </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-overview-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-info">
+              <h4 id="dash-stat-taken">0</h4>
+              <span id="dash-stat-label-1">Quizzes Taken</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: var(--success); background: var(--success-bg);">🎯</div>
+            <div class="stat-info">
+              <h4 id="dash-stat-passed">0</h4>
+              <span id="dash-stat-label-2">Quizzes Passed</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: var(--accent-purple); background: rgba(139, 92, 246, 0.15);">📈</div>
+            <div class="stat-info">
+              <h4 id="dash-stat-avg">0%</h4>
+              <span id="dash-stat-label-3">Average Score</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: var(--warning); background: var(--warning-bg);">⭐</div>
+            <div class="stat-info">
+              <h4 id="dash-stat-top-cat">None</h4>
+              <span id="dash-stat-label-4">Top Category</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="filter-search-bar" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+          <div class="tab-group" id="dash-category-filters">
+            <button class="tab-btn dash-cat-pill active" data-category="all">All Quizzes</button>
+            <button class="tab-btn dash-cat-pill" data-category="Programming">☕ Programming</button>
+            <button class="tab-btn dash-cat-pill" data-category="General Knowledge">🌐 GK & Trivia</button>
+            <button class="tab-btn dash-cat-pill" data-category="Mathematics">📐 Mathematics</button>
+            <button class="tab-btn dash-cat-pill" data-category="Science">🔬 Science</button>
+            <button class="tab-btn dash-cat-pill" data-category="English">📚 English</button>
+          </div>
+
+          <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;">
+            <div class="search-input-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="dash-search-input" class="form-input" placeholder="Search by title or test code...">
+            </div>
+            <!-- Quick Join by Test Code Form -->
+            <form id="form-join-code" style="display: flex; gap: 0.4rem; align-items: center;">
+              <input type="text" id="dash-join-code-input" class="form-input" placeholder="🏷️ Test Code" style="max-width: 140px; font-weight: 700; text-transform: uppercase; padding: 0.45rem 0.65rem; font-size: 0.85rem;" required>
+              <button type="submit" class="btn btn-primary btn-sm" style="white-space: nowrap; padding: 0.5rem 0.75rem;">Join 🚀</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Quizzes Grid (Card View) -->
+        <div id="dash-quizzes-grid" class="quizzes-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Quizzes Management Table (Admin Table View) -->
+        <div id="dash-quizzes-table-container" class="data-table-container" style="display: none; margin-top: 1rem;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Quiz Title & Category</th>
+                <th>Difficulty</th>
+                <th>Questions</th>
+                <th>Duration</th>
+                <th>Passing</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dash-quizzes-table-tbody">
+              <!-- Populated dynamically via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 4: ACTIVE QUIZ ARENA
+           ==================================================================== -->
+      <section id="view-quiz-arena" class="view-container">
+        <div class="quiz-arena">
+          <!-- Header Bar -->
+          <div class="quiz-header-bar">
+            <div class="quiz-header-info">
+              <span id="arena-quiz-category" class="badge badge-primary">Category</span>
+              <h3 id="arena-quiz-title">Quiz Title</h3>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <!-- Timer Box -->
+              <div id="arena-timer-box" class="timer-container">
+                <span>⏱️</span>
+                <span id="arena-timer-text">00:00</span>
+              </div>
+
+              <!-- Arena End Test Button -->
+              <button id="btn-arena-end-test" class="btn btn-danger btn-sm" style="font-weight: 700; gap: 0.35rem;" title="End or Submit Test">
+                ⏹️ End Test
+              </button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="quiz-progress-bar-wrap">
+            <div id="arena-progress-fill" class="quiz-progress-fill"></div>
+          </div>
+
+          <!-- Arena Layout -->
+          <div class="quiz-arena-layout">
+            <!-- Main Question Area -->
+            <div class="question-card">
+              <div class="question-card-header">
+                <span id="arena-q-counter" class="question-counter">Question 1 of 10</span>
+                <span id="arena-q-marks" class="question-marks-badge">+2 Marks</span>
+              </div>
+
+              <div id="arena-q-text" class="question-text">
+                Loading question...
+              </div>
+
+              <div id="arena-options-list" class="options-list">
+                <!-- Options populated dynamically -->
+              </div>
+
+              <div class="quiz-controls-bar">
+                <div class="quiz-controls-left">
+                  <button id="btn-quiz-prev" class="btn btn-secondary">← Previous</button>
+                  <button id="btn-quiz-clear" class="btn btn-outline btn-sm">Clear Choice</button>
+                  <button id="btn-quiz-mark-review" class="btn btn-outline btn-sm">🏷️ Mark Review</button>
+                </div>
+                <div class="quiz-controls-right">
+                  <button id="btn-quiz-next" class="btn btn-primary">Next Question →</button>
+                  <button id="btn-quiz-submit" class="btn btn-success">Submit Test 🏁</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Side Navigation Palette -->
+            <aside class="palette-card">
+              <h4 class="palette-title">Question Navigator</h4>
+              <div class="palette-legend">
+                <div class="legend-item"><span class="legend-dot answered"></span> Answered</div>
+                <div class="legend-item"><span class="legend-dot unanswered"></span> Unanswered</div>
+                <div class="legend-item"><span class="legend-dot marked"></span> Review</div>
+                <div class="legend-item"><span class="legend-dot current"></span> Current</div>
+              </div>
+
+              <div id="arena-palette-grid" class="palette-grid">
+                <!-- Palette buttons dynamically rendered -->
+              </div>
+
+              <div id="arena-palette-summary" style="margin-top: 1.25rem; font-size: 0.82rem; color: var(--text-muted); text-align: center;">
+                0 of 0 Answered
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 5: INSTANT RESULTS & REVIEW
+           ==================================================================== -->
+      <section id="view-results" class="view-container">
+        <div class="result-container">
+          <!-- Hero Card -->
+          <div class="result-hero-card">
+            <div class="result-badge-banner">
+              <span id="res-status-badge" class="badge badge-success badge-lg">PASSED 🎉</span>
+            </div>
+
+            <!-- Animated Score Ring -->
+            <div class="score-circle-wrapper">
+              <svg class="score-circle-svg" viewBox="0 0 160 160">
+                <circle class="score-circle-bg" cx="80" cy="80" r="70"></circle>
+                <circle id="res-circle-progress" class="score-circle-progress" cx="80" cy="80" r="70"></circle>
+              </svg>
+              <div class="score-circle-content">
+                <div id="res-score-percentage" class="score-percentage">0%</div>
+                <div id="res-score-fraction" class="score-fraction">0 / 20 Marks</div>
+              </div>
+            </div>
+
+            <h2 id="res-title" class="result-title">Quiz Completed!</h2>
+            <p id="res-feedback" class="result-feedback">Here is how you performed on this assessment.</p>
+
+            <!-- Stats Grid -->
+            <div class="result-stats-grid">
+              <div class="result-stat-box">
+                <h5 id="res-stat-total-q">0</h5>
+                <span>Total Questions</span>
+              </div>
+              <div class="result-stat-box" style="border-color: var(--success);">
+                <h5 id="res-stat-correct" style="color: var(--success);">0</h5>
+                <span>Correct</span>
+              </div>
+              <div class="result-stat-box" style="border-color: var(--danger);">
+                <h5 id="res-stat-wrong" style="color: var(--danger);">0</h5>
+                <span>Incorrect</span>
+              </div>
+              <div class="result-stat-box">
+                <h5 id="res-stat-accuracy">0%</h5>
+                <span>Accuracy</span>
+              </div>
+              <div class="result-stat-box">
+                <h5 id="res-stat-time">0m 0s</h5>
+                <span>Time Taken</span>
+              </div>
+            </div>
+
+            <!-- Result Actions -->
+            <div class="result-actions">
+              <button id="btn-download-certificate" class="btn btn-glow">
+                🎓 Download Certificate
+              </button>
+              <button class="btn btn-secondary" data-nav="dashboard">
+                🏠 Back to Dashboard
+              </button>
+              <button class="btn btn-secondary" data-nav="leaderboard">
+                🏆 View Leaderboard
+              </button>
+            </div>
+          </div>
+
+          <!-- Answer Explanations Review -->
+          <div class="review-section">
+            <div class="review-header">
+              <h3>Detailed Question & Solution Review</h3>
+            </div>
+            <div id="res-review-container">
+              <!-- Review cards rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 6: LEADERBOARD
+           ==================================================================== -->
+      <section id="view-leaderboard" class="view-container">
+        <div class="leaderboard-container">
+          <div class="dashboard-header">
+            <div>
+              <h2>Global Hall of Fame 🏆</h2>
+              <p>Top scholars and ranking leaders based on total points and accuracy.</p>
+            </div>
+            <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+              <select id="lb-filter-category" class="form-select" onchange="window.app.renderLeaderboard()" style="min-width: 140px;">
+                <option value="all">All Categories</option>
+                <option value="Programming">Programming</option>
+                <option value="General Knowledge">General Knowledge</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Science">Science</option>
+                <option value="English">English</option>
+              </select>
+              <select id="lb-filter-testcode" class="form-select" onchange="window.app.renderLeaderboard()" style="min-width: 160px;">
+                <option value="all">🏷️ All Test Codes</option>
+                <!-- Populated dynamically via JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Top 3 Podium -->
+          <div id="lb-podium-section" class="podium-section">
+            <!-- Podium cards rendered via JS -->
+          </div>
+
+          <!-- Rankings Table -->
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Student Details</th>
+                  <th>Quizzes Taken</th>
+                  <th>Passed</th>
+                  <th>Accuracy</th>
+                  <th>Total Points</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="lb-table-tbody">
+                <!-- Table rows rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 7: RESULT HISTORY
+           ==================================================================== -->
+      <section id="view-history" class="view-container">
+        <div class="leaderboard-container">
+          <div class="dashboard-header">
+            <div>
+              <h2 id="history-view-title">My Assessment History 📜</h2>
+              <p id="history-view-subtitle">Track all your previous test submissions, scores, and performance history.</p>
+            </div>
+            <div id="history-header-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button id="btn-history-create-quiz" class="btn btn-primary auth-only-admin" style="display: none;">+ Create New Quiz 📝</button>
+              <button class="btn btn-secondary" data-nav="dashboard">Browse Quizzes 🚀</button>
+            </div>
+          </div>
+
+          <!-- Admin History Mode Switcher -->
+          <div id="history-tab-controls" class="tab-group auth-only-admin" style="display: none; margin-bottom: 1.5rem; max-width: 400px;">
+            <button id="tab-history-my" class="tab-btn active" style="flex: 1;">My Quiz Attempts</button>
+            <button id="tab-history-all" class="tab-btn" style="flex: 1;">All Student Results (Admin)</button>
+          </div>
+
+          <div class="data-table-container">
+            <table class="data-table">
+              <thead id="history-table-thead">
+                <tr>
+                  <th>Quiz Title</th>
+                  <th>Category</th>
+                  <th>Score</th>
+                  <th>Status</th>
+                  <th>Time Spent</th>
+                  <th>Date Taken</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-tbody">
+                <!-- History rows rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           VIEW 8: ADMIN CONTROL PANEL
+           ==================================================================== -->
+      <section id="view-admin" class="view-container">
+        <div class="dashboard-header">
+          <div>
+            <h2>Admin Control Center ⚙️</h2>
+            <p>Manage quizzes, configure questions, view student results, and manage system database.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button id="btn-edit-profile-admin" class="btn btn-secondary">✏️ My Profile</button>
+            <button id="btn-admin-bulk-import-header" class="btn btn-secondary" title="Upload questions via CSV, JSON or plain text">📤 Bulk Import</button>
+            <button id="btn-admin-new-quiz" class="btn btn-primary">+ Create New Quiz</button>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <!-- Sidebar Sub-Nav -->
+          <aside class="admin-sidebar">
+            <div class="admin-nav-item active" data-tab="quizzes">
+              <span>📝</span> Manage Quizzes
+            </div>
+            <div class="admin-nav-item" data-tab="submissions">
+              <span>👥</span> Student Submissions
+            </div>
+            <div class="admin-nav-item" data-tab="analytics">
+              <span>📊</span> Analytics & Reports
+            </div>
+            <div class="admin-nav-item" data-tab="backup">
+              <span>💾</span> Backup & Reset
+            </div>
+          </aside>
+
+          <!-- Main Admin Content Area -->
+          <div class="admin-panel-content">
+            <!-- Platform Metrics -->
+            <div class="stats-overview-grid" style="margin-bottom: 2rem;">
+              <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-info">
+                  <h4 id="admin-metric-students">0</h4>
+                  <span>Registered Students</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-info">
+                  <h4 id="admin-metric-quizzes">0</h4>
+                  <span>Active Quizzes</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-info">
+                  <h4 id="admin-metric-attempts">0</h4>
+                  <span>Total Attempts</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-info">
+                  <h4 id="admin-metric-accuracy">0%</h4>
+                  <span>Avg Accuracy</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 1: Quizzes Table -->
+            <div id="admin-sec-quizzes" class="admin-tab-section">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                <h3>Quiz Catalog</h3>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button id="btn-admin-bulk-import-catalog" class="btn btn-secondary btn-sm" title="Upload questions to any quiz">📤 Bulk Import Questions</button>
+                  <button id="btn-admin-new-quiz-tab" class="btn btn-primary btn-sm" onclick="window.adminController.openQuizModal()">+ New Quiz</button>
+                </div>
+              </div>
+              <div class="data-table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Quiz</th>
+                      <th>Difficulty</th>
+                      <th>Questions</th>
+                      <th>Duration</th>
+                      <th>Passing</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-quizzes-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 2: Student Submissions -->
+            <div id="admin-sec-submissions" class="admin-tab-section" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                  <h3 style="margin: 0 0 0.25rem;">Student Submissions</h3>
+                  <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Export score sheets or print detailed class assessment reports.</p>
+                </div>
+                <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
+                  <div class="search-input-box" style="max-width: 240px;">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="admin-submissions-search" class="form-input" placeholder="Search student/quiz...">
+                  </div>
+                  <button id="btn-admin-export-submissions-csv" class="btn btn-secondary btn-sm" title="Download all student scores as CSV spreadsheet">
+                    📊 Export CSV Score Sheet
+                  </button>
+                  <button id="btn-admin-print-report" class="btn btn-primary btn-sm" title="Generate printable class performance and assessment report">
+                    📄 PDF / Print Report
+                  </button>
+                </div>
+              </div>
+              <div class="data-table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Quiz</th>
+                      <th>Category</th>
+                      <th>Score</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-submissions-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 3: Analytics -->
+            <div id="admin-sec-analytics" class="admin-tab-section" style="display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div>
+                  <h3 style="margin: 0 0 0.25rem;">Category Analytics & Pass Rates</h3>
+                  <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Aggregated student performance breakdown by subject.</p>
+                </div>
+                <button id="btn-admin-analytics-print-report" class="btn btn-secondary btn-sm" title="Generate printable performance report">
+                  📄 Export Performance Summary (PDF)
+                </button>
+              </div>
+              <div id="admin-analytics-charts-box">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Tab 4: Backup & Reset -->
+            <div id="admin-sec-backup" class="admin-tab-section" style="display: none;">
+              <h3>System Data Backup & Restore</h3>
+              <p style="margin-bottom: 1.5rem;">Export your complete platform data as JSON or restore from a backup file.</p>
+
+              <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 480px;">
+                <div class="card" style="padding: 1.25rem;">
+                  <h4>Export Platform Data</h4>
+                  <p style="font-size: 0.85rem; margin: 0.4rem 0 1rem;">Download a complete JSON snapshot containing all quizzes, users, and submission records.</p>
+                  <button id="btn-export-database" class="btn btn-secondary btn-sm">💾 Download JSON Backup</button>
+                </div>
+
+                <div class="card" style="padding: 1.25rem;">
+                  <h4>Import Platform Data</h4>
+                  <p style="font-size: 0.85rem; margin: 0.4rem 0 1rem;">Restore from a previously exported JSON backup.</p>
+                  <input type="file" id="file-import-database" accept=".json" class="form-input" style="font-size: 0.85rem;">
+                </div>
+
+                <div class="card" style="padding: 1.25rem; border-color: var(--danger-border);">
+                  <h4 style="color: var(--danger);">Reset to Factory Defaults</h4>
+                  <p style="font-size: 0.85rem; margin: 0.4rem 0 1rem;">Clears all custom additions and restores the standard predefined quizzes and accounts.</p>
+                  <button id="btn-reset-database" class="btn btn-danger btn-sm">⚠️ Reset Platform Database</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- App Footer -->
+    <footer class="app-footer">
+      <p>© 2026 QuizzMaster Pro. Interactive Assessment & Quiz System. Built with clean HTML5, CSS3 & JavaScript.</p>
+    </footer>
+
+  </div>
+
+  <!-- ========================================================================
+       MODALS
+       ======================================================================== -->
+
+  <!-- Modal 1: Quiz Instructions -->
+  <div id="modal-quiz-instructions" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-inst-title" class="modal-title">Quiz Instructions</h3>
+        <button class="modal-close" data-close-modal="modal-quiz-instructions">×</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: var(--bg-glass-strong); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.9rem;">
+            <div>📂 Category: <strong id="modal-inst-category">-</strong></div>
+            <div>❓ Total Questions: <strong id="modal-inst-qcount">-</strong></div>
+            <div>⏱️ Time Limit: <strong id="modal-inst-time">-</strong></div>
+            <div>🎯 Passing Score: <strong id="modal-inst-pass">-</strong></div>
+            <div>🏆 Total Marks: <strong id="modal-inst-marks">-</strong></div>
+          </div>
+        </div>
+
+        <h4 style="margin-bottom: 0.5rem;">Rules & Guidelines:</h4>
+        <ul style="padding-left: 1.25rem; font-size: 0.9rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.4rem;">
+          <li>Each question has exactly one correct answer.</li>
+          <li>You can navigate between questions freely using <strong>Previous</strong>, <strong>Next</strong>, or the <strong>Question Palette</strong>.</li>
+          <li>Use <strong>Mark for Review</strong> to flag questions you wish to double check before submission.</li>
+          <li>Keyboard shortcuts are enabled: press keys <strong>1, 2, 3, 4</strong> to select choices.</li>
+          <li>The test will automatically submit when the countdown timer reaches zero.</li>
+          <li>Instant results and detailed explanations will be provided immediately upon completion.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modal-quiz-instructions">Cancel</button>
+        <button id="btn-start-quiz-confirmed" class="btn btn-glow">Start Test Now 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Submit Confirmation -->
+  <div id="modal-submit-confirm" class="modal-overlay">
+    <div class="modal-card" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Submit Assessment</h3>
+        <button class="modal-close" data-close-modal="modal-submit-confirm">×</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🏁</div>
+        <h3>Are you sure you want to finish?</h3>
+        <p style="margin-bottom: 1.5rem;">Once submitted, your answers will be locked and your final score will be calculated.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div>
+            <div id="submit-modal-total" style="font-size: 1.25rem; font-weight: 800;">0</div>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">TOTAL</span>
+          </div>
+          <div>
+            <div id="submit-modal-answered" style="font-size: 1.25rem; font-weight: 800; color: var(--success);">0</div>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">ANSWERED</span>
+          </div>
+          <div>
+            <div id="submit-modal-unanswered" style="font-size: 1.25rem; font-weight: 800; color: var(--danger);">0</div>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">UNANSWERED</span>
+          </div>
+          <div>
+            <div id="submit-modal-marked" style="font-size: 1.25rem; font-weight: 800; color: var(--warning);">0</div>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">REVIEW</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-submit-confirm">Continue Test ⏳</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button type="button" id="btn-quit-test-no-save" class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);" title="Exit to dashboard without saving">Quit Test 🚪</button>
+          <button type="button" id="btn-confirm-final-submit" class="btn btn-success">End & Submit 🏁</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Admin Quiz Editor -->
+  <div id="modal-quiz-editor" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-quiz-editor-title" class="modal-title">Create / Edit Quiz</h3>
+        <button class="modal-close" data-close-modal="modal-quiz-editor">×</button>
+      </div>
+      <form id="form-quiz-editor">
+        <div class="modal-body">
+          <input type="hidden" id="quiz-field-id">
+          <div class="form-group">
+            <label class="form-label" for="quiz-field-title">Quiz Title</label>
+            <input type="text" id="quiz-field-title" class="form-input" placeholder="e.g. Advanced Python Programming" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-code">Test Access Code 🏷️</label>
+              <input type="text" id="quiz-field-code" class="form-input" placeholder="e.g. NET-2026 or JAVA-101" style="font-weight: 700; text-transform: uppercase;">
+              <small style="font-size: 0.75rem; color: var(--text-muted);">Unique test code for students</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-password">Test Password (Optional) 🔒</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="quiz-field-password" class="form-input" placeholder="Leave blank for open test">
+                <button type="button" class="password-toggle-btn" data-target="quiz-field-password" title="Show password" aria-label="Show password">
+                  <svg class="icon-eye-hidden" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  <svg class="icon-eye-visible" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                </button>
+              </div>
+              <small style="font-size: 0.75rem; color: var(--text-muted);">Password to unlock test</small>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-category">Category</label>
+              <select id="quiz-field-category" class="form-select">
+                <option value="Programming">Programming</option>
+                <option value="General Knowledge">General Knowledge</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Science">Science</option>
+                <option value="English">English</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-icon">Icon (Emoji)</label>
+              <input type="text" id="quiz-field-icon" class="form-input" placeholder="e.g. 🐍" value="🎯">
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-difficulty">Difficulty</label>
+              <select id="quiz-field-difficulty" class="form-select">
+                <option value="Easy">Easy</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-duration">Duration (Mins)</label>
+              <input type="number" id="quiz-field-duration" class="form-input" min="1" max="180" value="15" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="quiz-field-pass">Pass Percentage</label>
+              <input type="number" id="quiz-field-pass" class="form-input" min="10" max="100" value="60" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="quiz-field-desc">Short Description</label>
+            <textarea id="quiz-field-desc" class="form-textarea" placeholder="Brief summary of what this quiz tests..."></textarea>
+          </div>
+
+          <!-- Question Management Banner in Create/Edit Quiz -->
+          <div style="background: rgba(99, 102, 241, 0.09); border: 1px dashed var(--primary); padding: 0.9rem 1.1rem; border-radius: var(--radius-md); margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+            <div>
+              <strong style="font-size: 0.95rem; color: var(--text-primary); display: block;">❓ Test Questions</strong>
+              <span id="quiz-editor-qcount-text" style="font-size: 0.8rem; color: var(--text-muted);">0 questions added yet. Click to add questions!</span>
+            </div>
+            <button type="button" id="btn-quiz-editor-add-questions-inline" class="btn btn-primary btn-sm" style="white-space: nowrap; font-size: 0.82rem; padding: 0.4rem 0.8rem;">
+              + Add / Edit Questions ➕
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 0.6rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-quiz-editor">Cancel</button>
+          <button type="button" id="btn-save-and-manage-questions" class="btn btn-secondary" style="color: var(--primary); font-weight: 600; border-color: var(--primary);">
+            Save & Add Questions ➕
+          </button>
+          <button type="submit" class="btn btn-primary">Save Quiz 💾</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Admin Question Manager -->
+  <div id="modal-question-manager" class="modal-overlay">
+    <div class="modal-card modal-card-lg">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">Manage Questions</h3>
+          <p id="modal-question-manager-quiz-title" style="font-size: 0.85rem; color: var(--text-muted);"></p>
+        </div>
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+          <button id="btn-bulk-import-modal-trigger" class="btn btn-secondary btn-sm" title="Upload multiple questions via CSV/JSON/Text">📤 Bulk Import</button>
+          <button id="btn-add-new-question" class="btn btn-primary btn-sm">+ Add Question</button>
+          <button class="modal-close" data-close-modal="modal-question-manager">×</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="question-manager-list">
+          <!-- Question list rendered dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="modal-question-manager">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Admin Add/Edit Single Question -->
+  <div id="modal-question-editor" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-question-editor-title" class="modal-title">Add / Edit Question</h3>
+        <button class="modal-close" data-close-modal="modal-question-editor">×</button>
+      </div>
+      <form id="form-question-editor">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="q-field-text">Question Prompt</label>
+            <textarea id="q-field-text" class="form-textarea" placeholder="Type the question text here..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="q-field-marks">Question Marks</label>
+            <input type="number" id="q-field-marks" class="form-input" min="1" max="10" value="2" required>
+          </div>
+
+          <label class="form-label" style="margin-top: 1rem;">Answer Options</label>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <input type="text" id="q-field-opt-0" class="form-input" placeholder="Option A" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <input type="text" id="q-field-opt-1" class="form-input" placeholder="Option B" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <input type="text" id="q-field-opt-2" class="form-input" placeholder="Option C" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <input type="text" id="q-field-opt-3" class="form-input" placeholder="Option D" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="q-field-correct">Select Correct Answer</label>
+            <select id="q-field-correct" class="form-select">
+              <option value="0">Option A</option>
+              <option value="1">Option B</option>
+              <option value="2">Option C</option>
+              <option value="3">Option D</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="q-field-explanation">Explanation / Solution Notes</label>
+            <textarea id="q-field-explanation" class="form-textarea" placeholder="Explain why the correct answer is right for student review..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-question-editor">Cancel</button>
+          <button type="button" id="btn-save-and-add-next" class="btn btn-secondary" style="border-color: var(--primary); color: #818cf8; font-weight: 700;">
+            Save & Add Next ➕
+          </button>
+          <button type="submit" class="btn btn-primary">Save & Close 💾</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 6: Edit Profile (Admin & Student) -->
+  <div id="modal-profile-editor" class="modal-overlay">
+    <div class="modal-card" style="max-width: 540px;">
+      <div class="modal-header">
+        <h3 class="modal-title">✏️ Edit Profile</h3>
+        <button class="modal-close" data-close-modal="modal-profile-editor">×</button>
+      </div>
+      <form id="form-profile-editor">
+        <div class="modal-body">
+          <!-- Role & Account Badge -->
+          <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-glass-strong); padding: 0.85rem 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; border: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Account Role</div>
+              <div id="profile-display-role" style="font-weight: 700; color: var(--primary);">Student</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Member Since</div>
+              <div id="profile-display-joined" style="font-size: 0.85rem; color: var(--text-secondary);">-</div>
+            </div>
+          </div>
+
+          <!-- Avatar Selector -->
+          <div class="form-group">
+            <label class="form-label">Choose Avatar</label>
+            <input type="hidden" id="profile-avatar-input" value="🎓">
+            <div class="avatar-picker-grid" id="profile-avatar-grid">
+              <div class="avatar-option" data-avatar="🎓">🎓</div>
+              <div class="avatar-option" data-avatar="🚀">🚀</div>
+              <div class="avatar-option" data-avatar="💡">💡</div>
+              <div class="avatar-option" data-avatar="🌟">🌟</div>
+              <div class="avatar-option" data-avatar="⚡">⚡</div>
+              <div class="avatar-option" data-avatar="🦁">🦁</div>
+              <div class="avatar-option" data-avatar="👑">👑</div>
+              <div class="avatar-option" data-avatar="🎯">🎯</div>
+              <div class="avatar-option" data-avatar="🔥">🔥</div>
+              <div class="avatar-option" data-avatar="🏆">🏆</div>
+              <div class="avatar-option" data-avatar="🎨">🎨</div>
+              <div class="avatar-option" data-avatar="💻">💻</div>
+            </div>
+          </div>
+
+          <!-- Name & Email -->
+          <div class="form-group">
+            <label class="form-label" for="profile-field-name">Full Name</label>
+            <input type="text" id="profile-field-name" class="form-input" placeholder="Your Full Name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profile-field-email">Email Address</label>
+            <input type="email" id="profile-field-email" class="form-input" placeholder="Your Email Address" required>
+          </div>
+
+          <!-- Optional Change Password -->
+          <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--text-primary);">Change Password (Optional)</h4>
+            <div class="form-group">
+              <label class="form-label" for="profile-field-current-pw">Current Password</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="profile-field-current-pw" class="form-input" placeholder="Enter current password if changing">
+                <button type="button" class="password-toggle-btn" data-target="profile-field-current-pw" title="Show password" aria-label="Show password">
+                  <svg class="icon-eye-hidden" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  <svg class="icon-eye-visible" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                </button>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="profile-field-new-pw">New Password (min 6 characters)</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="profile-field-new-pw" class="form-input" placeholder="Leave blank to keep same password" minlength="6">
+                <button type="button" class="password-toggle-btn" data-target="profile-field-new-pw" title="Show password" aria-label="Show password">
+                  <svg class="icon-eye-hidden" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  <svg class="icon-eye-visible" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-profile-editor">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Profile Changes 💾</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 7: Student Performance Details (Admin & Student Inspector) -->
+  <div id="modal-student-details" class="modal-overlay">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <h3 class="modal-title">👤 Student Performance Profile</h3>
+        <button class="modal-close" data-close-modal="modal-student-details">×</button>
+      </div>
+      <div class="modal-body">
+        <!-- Student Header Card -->
+        <div style="display: flex; align-items: center; gap: 1rem; background: var(--bg-glass-strong); padding: 1rem 1.25rem; border-radius: var(--radius-lg); margin-bottom: 1.25rem; border: 1px solid var(--border-subtle);">
+          <div id="stud-detail-avatar" style="font-size: 2.5rem;">🎓</div>
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <h3 id="stud-detail-name" style="margin: 0; font-size: 1.2rem;">Student Name</h3>
+              <span id="stud-detail-role-badge" class="badge badge-primary">Student</span>
+            </div>
+            <span id="stud-detail-email" style="font-size: 0.85rem; color: var(--text-muted);">student@email.com</span>
+          </div>
+        </div>
+
+        <!-- Metric Grid -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+          <div style="background: var(--bg-secondary); padding: 0.75rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Quizzes</div>
+            <div id="stud-stat-quizzes" style="font-size: 1.2rem; font-weight: 700; color: var(--primary);">0</div>
+          </div>
+          <div style="background: var(--bg-secondary); padding: 0.75rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Passed</div>
+            <div id="stud-stat-passed" style="font-size: 1.2rem; font-weight: 700; color: var(--success);">0</div>
+          </div>
+          <div style="background: var(--bg-secondary); padding: 0.75rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Avg Accuracy</div>
+            <div id="stud-stat-avg" style="font-size: 1.2rem; font-weight: 700; color: var(--accent-purple);">0%</div>
+          </div>
+          <div style="background: var(--bg-secondary); padding: 0.75rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase;">Total Score</div>
+            <div id="stud-stat-score" style="font-size: 1.2rem; font-weight: 700; color: var(--warning);">0 pts</div>
+          </div>
+        </div>
+
+        <h4 style="margin-bottom: 0.75rem; font-size: 1rem;">📜 Quiz Attempts & Solutions</h4>
+        <div style="max-height: 240px; overflow-y: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+          <table class="data-table" style="font-size: 0.85rem;">
+            <thead>
+              <tr>
+                <th>Quiz</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="stud-detail-attempts-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-student-details">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 8: System Data Backup & Restore -->
+  <div id="modal-backup-manager" class="modal-overlay">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">💾 Platform Data Backup & Restore</h3>
+        <button class="modal-close" data-close-modal="modal-backup-manager">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary); margin-bottom: 1.25rem; font-size: 0.9rem;">
+          Export your complete platform data as JSON or restore from a previous backup file.
+        </p>
+
+        <!-- Export -->
+        <div style="background: var(--bg-secondary); padding: 1.25rem; border-radius: var(--radius-lg); margin-bottom: 1rem; border: 1px solid var(--border-subtle);">
+          <h4 style="margin: 0 0 0.4rem; font-size: 1rem;">Export Platform Data</h4>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Download a complete JSON snapshot containing all quizzes, questions, registered users, and submission records.
+          </p>
+          <button type="button" id="btn-export-backup-modal" class="btn btn-primary btn-sm">💾 Download JSON Backup</button>
+        </div>
+
+        <!-- Import -->
+        <div style="background: var(--bg-secondary); padding: 1.25rem; border-radius: var(--radius-lg); margin-bottom: 1rem; border: 1px solid var(--border-subtle);">
+          <h4 style="margin: 0 0 0.4rem; font-size: 1rem;">Import Platform Data</h4>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Restore quizzes and student submissions from a previously exported JSON backup.
+          </p>
+          <input type="file" id="file-import-backup-modal" accept=".json" class="form-input" style="font-size: 0.85rem;">
+        </div>
+
+        <!-- Reset -->
+        <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid var(--danger); padding: 1.25rem; border-radius: var(--radius-lg);">
+          <h4 style="margin: 0 0 0.4rem; font-size: 1rem; color: var(--danger);">Reset to Factory Defaults</h4>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Clears all custom additions and restores the standard predefined quizzes and starter accounts.
+          </p>
+          <button type="button" id="btn-reset-backup-modal" class="btn btn-danger btn-sm">⚠️ Reset Platform Database</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-backup-manager">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 9: Test Password Unlock Modal -->
+  <div id="modal-quiz-password" class="modal-overlay">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🔒 Enter Test Password</h3>
+        <button class="modal-close" data-close-modal="modal-quiz-password">×</button>
+      </div>
+      <form id="form-quiz-password">
+        <div class="modal-body">
+          <input type="hidden" id="quiz-unlock-id">
+          <div style="text-align: center; margin-bottom: 1.25rem;">
+            <div style="font-size: 2.8rem; margin-bottom: 0.5rem;">🔐</div>
+            <h4 id="quiz-unlock-title" style="margin-bottom: 0.35rem; font-size: 1.15rem;">Test Title</h4>
+            <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <span id="quiz-unlock-code-badge" class="badge badge-primary">🏷️ JAVA-101</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+              This assessment is password-protected by the instructor. Please enter the test password to unlock and proceed.
+            </p>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0.5rem;">
+            <label class="form-label" for="quiz-unlock-password-input">Test Access Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" id="quiz-unlock-password-input" class="form-input" placeholder="Enter password..." required>
+              <button type="button" class="password-toggle-btn" data-target="quiz-unlock-password-input" title="Show password" aria-label="Show password">
+                <svg class="icon-eye-hidden" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <svg class="icon-eye-visible" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal="modal-quiz-password">Cancel</button>
+          <button type="submit" class="btn btn-primary">Unlock & Start Test 🚀</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 10: Google / Gmail Authentic Account Chooser -->
+  <div id="modal-google-auth" class="modal-overlay google-oauth-backdrop">
+    <div class="google-oauth-card">
+      <!-- Google Top Header -->
+      <div class="google-oauth-top-bar">
+        <div class="google-oauth-brand">
+          <svg class="google-icon" viewBox="0 0 24 24" width="18" height="18">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.98 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+          </svg>
+          <span>Sign in with Google</span>
+        </div>
+        <button type="button" class="google-oauth-close" data-close-modal="modal-google-auth" aria-label="Close">✕</button>
+      </div>
+
+      <div class="google-oauth-body">
+        <!-- Step 1: Account Chooser View -->
+        <div id="google-view-chooser" class="google-view-pane active">
+          <div class="google-oauth-columns">
+            <!-- Left Branding Side -->
+            <div class="google-oauth-left">
+              <div class="google-oauth-app-logo">
+                <div class="app-logo-badge">🎓</div>
+              </div>
+              <h2 class="google-oauth-title">Choose an account</h2>
+              <p class="google-oauth-subtitle">
+                to continue to <span class="google-oauth-appname">QuizzMaster Pro</span>
+              </p>
+            </div>
+
+            <!-- Right Accounts List Side -->
+            <div class="google-oauth-right">
+              <div class="google-account-chooser-list">
+                <!-- Account 1 -->
+                <div class="google-user-row" data-google-email="kawadevitthal32@gmail.com" data-google-name="Vitthal Kawade" data-google-avatar="V" data-google-color="#673ab7">
+                  <div class="google-user-circle" style="background-color: #673ab7;">V</div>
+                  <div class="google-user-details">
+                    <div class="google-user-name">Vitthal Kawade</div>
+                    <div class="google-user-email">kawadevitthal32@gmail.com</div>
+                  </div>
+                  <div class="google-user-status">
+                    <div class="google-row-spinner"></div>
+                  </div>
+                </div>
+
+                <!-- Account 2 -->
+                <div class="google-user-row" data-google-email="vitthalkawade39@gmail.com" data-google-name="Vitthal Kawade" data-google-avatar="V" data-google-color="#3f51b5">
+                  <div class="google-user-circle" style="background-color: #3f51b5;">V</div>
+                  <div class="google-user-details">
+                    <div class="google-user-name">Vitthal Kawade</div>
+                    <div class="google-user-email">vitthalkawade39@gmail.com</div>
+                  </div>
+                  <div class="google-user-status">
+                    <div class="google-row-spinner"></div>
+                  </div>
+                </div>
+
+                <!-- Account 3 -->
+                <div class="google-user-row" data-google-email="kawadevitthal41@gmail.com" data-google-name="Vitthal Kawade" data-google-avatar="V" data-google-color="#455a64">
+                  <div class="google-user-circle" style="background-color: #455a64;">V</div>
+                  <div class="google-user-details">
+                    <div class="google-user-name">Vitthal Kawade</div>
+                    <div class="google-user-email">kawadevitthal41@gmail.com</div>
+                  </div>
+                  <div class="google-user-status">
+                    <div class="google-row-spinner"></div>
+                  </div>
+                </div>
+
+                <!-- Account 4 -->
+                <div class="google-user-row" data-google-email="vitthalkawade229@gmail.com" data-google-name="Vitthal Kawade" data-google-avatar="V" data-google-color="#0288d1">
+                  <div class="google-user-circle" style="background-color: #0288d1;">V</div>
+                  <div class="google-user-details">
+                    <div class="google-user-name">Vitthal Kawade</div>
+                    <div class="google-user-email">vitthalkawade229@gmail.com</div>
+                  </div>
+                  <div class="google-user-status">
+                    <div class="google-row-spinner"></div>
+                  </div>
+                </div>
+
+                <!-- Use Another Account Row -->
+                <div class="google-user-row google-use-another-row" id="btn-google-use-another">
+                  <div class="google-user-circle google-circle-outline">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                  <div class="google-user-details">
+                    <div class="google-user-name" style="font-weight: 500; font-size: 14px;">Use another account</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Legal / Privacy notice -->
+              <div class="google-oauth-legal">
+                Before using this app, you can review QuizzMaster's <a href="#" class="google-link" onclick="event.preventDefault();">Privacy Policy</a> and <a href="#" class="google-link" onclick="event.preventDefault();">Terms of Service</a>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Use Another Account Form View -->
+        <div id="google-view-custom" class="google-view-pane" style="display: none;">
+          <div class="google-oauth-columns">
+            <div class="google-oauth-left">
+              <div class="google-oauth-app-logo">
+                <div class="app-logo-badge">🎓</div>
+              </div>
+              <h2 class="google-oauth-title">Sign in</h2>
+              <p class="google-oauth-subtitle">
+                to continue to <span class="google-oauth-appname">QuizzMaster Pro</span>
+              </p>
+            </div>
+
+            <div class="google-oauth-right">
+              <form id="form-google-custom-signin">
+                <div class="google-text-field">
+                  <input type="email" id="google-custom-email-input" class="google-input" placeholder=" " required>
+                  <label for="google-custom-email-input" class="google-floating-label">Email or phone</label>
+                </div>
+                <div style="margin-top: 0.4rem; margin-bottom: 1.25rem;">
+                  <a href="#" class="google-link" style="font-size: 13px;" onclick="event.preventDefault();">Forgot email?</a>
+                </div>
+
+                <div class="google-text-field" style="margin-bottom: 1.5rem;">
+                  <input type="text" id="google-custom-name-input" class="google-input" placeholder=" ">
+                  <label for="google-custom-name-input" class="google-floating-label">Your Name (e.g. Vitthal Kawade)</label>
+                </div>
+
+                <div class="google-oauth-action-row">
+                  <button type="button" class="google-btn-text" id="btn-google-back-to-list">Back</button>
+                  <button type="submit" class="google-btn-primary" id="btn-google-submit-custom">Next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Bottom Bar -->
+      <div class="google-oauth-bottom-bar">
+        <div class="google-language-select">
+          <span>English (United States)</span>
+          <span style="font-size: 9px; margin-left: 4px;">▼</span>
+        </div>
+        <div class="google-bottom-links">
+          <a href="#" class="google-footer-link" onclick="event.preventDefault();">Help</a>
+          <a href="#" class="google-footer-link" onclick="event.preventDefault();">Privacy</a>
+          <a href="#" class="google-footer-link" onclick="event.preventDefault();">Terms</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 11: Bulk Question Importer -->
+  <div id="modal-bulk-import" class="modal-overlay">
+    <div class="modal-card modal-card-lg" style="max-width: 860px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">📤 Bulk Question Importer</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Quickly import questions into any quiz via CSV, JSON, or formatted text.</p>
+        </div>
+        <button class="modal-close" data-close-modal="modal-bulk-import">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Target Quiz & Import Options Configuration -->
+        <div style="background: var(--bg-glass-strong); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.25rem;">
+          <div style="display: grid; grid-template-columns: 2fr 1.2fr 1fr; gap: 1rem; align-items: flex-end;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="bulk-target-quiz-select">Target Quiz 🎯</label>
+              <select id="bulk-target-quiz-select" class="form-select">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="bulk-import-mode-select">Import Action ⚡</label>
+              <select id="bulk-import-mode-select" class="form-select">
+                <option value="append">Append to existing questions</option>
+                <option value="replace">Replace all existing questions</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="bulk-default-marks">Marks/Q 🏆</label>
+              <input type="number" id="bulk-default-marks" class="form-input" min="1" max="10" value="2">
+            </div>
+          </div>
+        </div>
+
+        <!-- Import Methods Tab Switcher -->
+        <div class="tab-group" style="margin-bottom: 1.25rem;">
+          <button type="button" class="tab-btn active" id="bulk-tab-btn-file" onclick="window.adminController.switchBulkTab('file')">
+            📁 Upload CSV / JSON File
+          </button>
+          <button type="button" class="tab-btn" id="bulk-tab-btn-text" onclick="window.adminController.switchBulkTab('text')">
+            📋 Paste Text / AI Questions
+          </button>
+          <button type="button" class="tab-btn" id="bulk-tab-btn-templates" onclick="window.adminController.switchBulkTab('templates')">
+            📥 Sample Templates & Guide
+          </button>
+        </div>
+
+        <!-- TAB 1: File Upload (CSV / JSON) -->
+        <div id="bulk-tab-pane-file" class="bulk-tab-pane">
+          <div class="file-dropzone" id="bulk-file-dropzone" onclick="document.getElementById('bulk-file-input').click()">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📂</div>
+            <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 0.25rem;">Click to browse or Drag & Drop question file</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Supports <strong>.CSV</strong> and <strong>.JSON</strong> question files</div>
+            <input type="file" id="bulk-file-input" accept=".csv, .json, .txt" style="display: none;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; font-size: 0.82rem; color: var(--text-muted);">
+            <span>Need a starter template? Download ready-to-use templates in the <strong>Sample Templates</strong> tab above.</span>
+          </div>
+        </div>
+
+        <!-- TAB 2: Paste Text / AI Questions -->
+        <div id="bulk-tab-pane-text" class="bulk-tab-pane" style="display: none;">
+          <div class="form-group" style="margin-bottom: 0.75rem;">
+            <label class="form-label" for="bulk-text-input">Paste Formatted Questions (from AI, ChatGPT, or Word documents)</label>
+            <textarea id="bulk-text-input" class="form-textarea" rows="8" style="font-family: monospace; font-size: 0.85rem; resize: vertical;" placeholder="1. What is the size of int in Java?
+A) 2 bytes
+B) 4 bytes
+C) 8 bytes
+D) 16 bytes
+Answer: B
+Explanation: An int in Java is a 32-bit signed two's complement integer.
+
+2. Which collection in Java does not allow duplicate elements?
+A) List
+B) Set
+C) Map
+D) Vector
+Answer: B
+Explanation: Set interface contains no duplicate elements."></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+            <button type="button" id="btn-bulk-load-sample-text" class="btn btn-secondary btn-sm">Load Sample Questions</button>
+            <button type="button" id="btn-bulk-parse-text" class="btn btn-primary btn-sm">🔍 Parse & Validate Text</button>
+          </div>
+        </div>
+
+        <!-- TAB 3: Sample Templates & AI Prompt Generator -->
+        <div id="bulk-tab-pane-templates" class="bulk-tab-pane" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <!-- CSV Template Card -->
+            <div class="card" style="padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 1.5rem;">📊</span>
+                <strong style="font-size: 1rem;">CSV Question Template</strong>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                Standard Excel / Spreadsheet format. Columns: <code>Question, Option A, Option B, Option C, Option D, Correct Answer (A/B/C/D), Marks, Explanation</code>.
+              </p>
+              <button type="button" id="btn-download-csv-template" class="btn btn-secondary btn-sm" style="width: 100%;">
+                📥 Download CSV Template (.csv)
+              </button>
+            </div>
+
+            <!-- JSON Template Card -->
+            <div class="card" style="padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 1.5rem;">📄</span>
+                <strong style="font-size: 1rem;">JSON Question Template</strong>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                Structured JSON format with array of question objects containing question, 4 options, correctAnswer (0-3), marks, and explanation.
+              </p>
+              <button type="button" id="btn-download-json-template" class="btn btn-secondary btn-sm" style="width: 100%;">
+                📥 Download JSON Template (.json)
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Generator Prompt Helper Card -->
+          <div style="background: rgba(99, 102, 241, 0.08); border: 1px dashed var(--primary); border-radius: var(--radius-lg); padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <strong style="font-size: 0.95rem; color: var(--primary);">🤖 ChatGPT / AI Question Prompt Generator</strong>
+              <button type="button" id="btn-copy-ai-prompt" class="btn btn-secondary btn-sm" style="font-size: 0.78rem;">📋 Copy AI Prompt</button>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+              Copy and paste this prompt into ChatGPT / Claude to instantly generate 10+ questions formatted for 1-click import:
+            </p>
+            <pre style="background: var(--bg-card); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.75rem; color: var(--text-muted); overflow-x: auto; white-space: pre-wrap;" id="sample-ai-prompt-text">Generate 10 multiple choice questions on the topic: [TOPIC].
+Format each question strictly as:
+1. [Question text]
+A) [Option 1]
+B) [Option 2]
+C) [Option 3]
+D) [Option 4]
+Answer: [A/B/C/D]
+Explanation: [1-2 sentences explanation]
+
+(Leave an empty blank line between questions).</pre>
+          </div>
+        </div>
+
+        <!-- Live Validation & Preview Section -->
+        <div id="bulk-preview-section" style="margin-top: 1.5rem; display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-subtle);">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <h4 style="margin: 0; font-size: 1rem;">Live Import Preview</h4>
+              <span id="bulk-badge-parsed" class="badge badge-primary">0 Parsed</span>
+              <span id="bulk-badge-valid" class="badge badge-success">0 Valid</span>
+              <span id="bulk-badge-errors" class="badge badge-danger" style="display: none;">0 Issues</span>
+            </div>
+            <button type="button" id="btn-bulk-clear-preview" class="btn btn-outline btn-sm" style="font-size: 0.75rem;">Clear Preview</button>
+          </div>
+
+          <!-- Error Alert Banner -->
+          <div id="bulk-errors-banner" style="display: none; background: rgba(239, 68, 68, 0.12); border: 1px solid var(--danger); border-radius: var(--radius-md); padding: 0.75rem 1rem; font-size: 0.82rem; color: #fca5a5; margin-bottom: 0.75rem;">
+            <!-- Errors listed here -->
+          </div>
+
+          <!-- Preview Cards List -->
+          <div id="bulk-preview-container" style="max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.6rem; padding-right: 0.25rem;">
+            <!-- Rendered preview items -->
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-bulk-import">Cancel</button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button type="button" id="btn-bulk-clear-all" class="btn btn-secondary">Reset</button>
+          <button type="button" id="btn-bulk-confirm-import" class="btn btn-primary" disabled>
+            🚀 Import Questions (0)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 12: Printable Assessment & Class Performance Report -->
+  <div id="modal-performance-report" class="modal-overlay">
+    <div class="modal-card modal-card-lg" style="max-width: 900px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">📄 Class Performance & Assessment Report</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Comprehensive student score breakdown, class pass rates, and performance analytics.</p>
+        </div>
+        <button class="modal-close" data-close-modal="modal-performance-report">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Filter Controls Bar -->
+        <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; background: var(--bg-glass-strong); padding: 0.85rem 1rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); margin-bottom: 1.25rem;">
+          <div style="display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap;">
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; margin-bottom: 0.2rem;">Filter by Quiz:</label>
+              <select id="report-filter-quiz" class="form-select" style="min-width: 180px; font-size: 0.85rem;" onchange="window.adminController.renderPerformanceReport()">
+                <option value="all">All Quizzes</option>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.75rem; margin-bottom: 0.2rem;">Filter by Status:</label>
+              <select id="report-filter-status" class="form-select" style="min-width: 130px; font-size: 0.85rem;" onchange="window.adminController.renderPerformanceReport()">
+                <option value="all">All Results</option>
+                <option value="passed">Passed Only ✓</option>
+                <option value="failed">Failed Only ✗</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; align-items: flex-end;">
+            <button type="button" id="btn-report-export-csv-btn" class="btn btn-secondary btn-sm">
+              📊 Export CSV
+            </button>
+            <button type="button" id="btn-report-print-btn" class="btn btn-primary btn-sm">
+              🖨️ Print / Save as PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Printable Report Content Container -->
+        <div id="printable-report-area" class="printable-report-card">
+          <!-- Branded Report Header -->
+          <div class="report-header-banner">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; border-bottom: 2px solid var(--border-subtle); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                  <span style="font-size: 1.8rem;">⚡</span>
+                  <h2 style="margin: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">QuizzMaster Pro</h2>
+                </div>
+                <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary);" id="report-doc-title">
+                  Class Assessment & Performance Summary Report
+                </div>
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.25rem;">
+                  Official Student Examination & Evaluation Transcript
+                </div>
+              </div>
+              <div style="text-align: right; font-size: 0.82rem; color: var(--text-secondary);">
+                <div>Generated: <strong id="report-gen-date">-</strong></div>
+                <div>Instructor / Evaluator: <strong id="report-admin-name">Dr. Sarah Mitchell</strong></div>
+                <div>Status: <span class="badge badge-success" style="font-size: 0.7rem;">Verified Official</span></div>
+              </div>
+            </div>
+
+            <!-- KPI Metric Summary Cards -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;" id="report-kpi-grid">
+              <div class="report-metric-box">
+                <div class="report-metric-label">Total Submissions</div>
+                <div class="report-metric-val" id="report-stat-total">0</div>
+              </div>
+              <div class="report-metric-box">
+                <div class="report-metric-label">Pass Rate</div>
+                <div class="report-metric-val" style="color: var(--success);" id="report-stat-pass-rate">0%</div>
+              </div>
+              <div class="report-metric-box">
+                <div class="report-metric-label">Average Score</div>
+                <div class="report-metric-val" style="color: var(--primary);" id="report-stat-avg-score">0%</div>
+              </div>
+              <div class="report-metric-box">
+                <div class="report-metric-label">Highest Score</div>
+                <div class="report-metric-val" style="color: var(--warning);" id="report-stat-high-score">0</div>
+              </div>
+            </div>
+
+            <!-- Category Performance Summary Grid -->
+            <div id="report-category-summary-box" style="margin-bottom: 1.5rem;">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Student Submissions Breakdown Table -->
+            <h4 style="font-size: 1rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center;">
+              <span>Student Score Breakdown</span>
+              <span id="report-table-row-count" style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Showing 0 records</span>
+            </h4>
+            <div class="data-table-container" style="box-shadow: none; border: 1px solid var(--border-subtle);">
+              <table class="data-table" id="report-scores-table" style="font-size: 0.85rem;">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Student Details</th>
+                    <th>Quiz Title</th>
+                    <th>Category</th>
+                    <th>Score / Marks</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                    <th>Time Spent</th>
+                    <th>Submitted</th>
+                  </tr>
+                </thead>
+                <tbody id="report-table-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Report Footer Signature Section -->
+            <div class="report-signature-row" style="display: flex; justify-content: space-between; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); font-size: 0.82rem; color: var(--text-muted);">
+              <div>
+                <div>QuizzMaster Pro Academic Assessment Engine</div>
+                <div style="font-size: 0.75rem;">Platform ID: QMP-SYS-2026 • Verified Examination Record</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="border-bottom: 1px solid var(--text-muted); width: 180px; margin-bottom: 0.35rem;"></div>
+                <div>Authorized Signatory / Administrator</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal="modal-performance-report">Close</button>
+        <button type="button" id="btn-report-bottom-print" class="btn btn-primary">
+          🖨️ Print / Save as PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       APPLICATION SCRIPTS
+       ======================================================================== -->
+  <script src="js/data/defaultQuizzes.js"></script>
+  <script src="js/data/defaultUsers.js"></script>
+  <script src="js/services/api.js"></script>
+  <script src="js/services/storage.js"></script>
+  <script src="js/services/auth.js"></script>
+  <script src="js/components/timer.js"></script>
+  <script src="js/components/sound.js"></script>
+  <script src="js/components/confetti.js"></script>
+  <script src="js/components/certificate.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
