@@ -28,19 +28,7 @@
       "role": "student",
       "avatar": "🎓",
       "isGoogleAuth": true,
-      "googleId": "gid_1788203148651",
-      "createdAt": "2026-08-31T19:05:48.651Z"
-    },
-    {
-      "id": "user_mthlzg6i6uad",
-      "name": "sanket",
-      "email": "sanket@gmail.com",
-      "password": "google_oauth_1788203148714_g0ymbx10z5p",
-      "role": "student",
-      "avatar": "🎓",
-      "isGoogleAuth": true,
-      "googleId": "gid_1788203148714",
-      "createdAt": "2026-08-31T19:05:48.714Z"
+      "createdAt": "2026-08-31T19:05:48.677Z"
     },
     {
       "id": "user_mthlzg735uqf",
@@ -50,8 +38,17 @@
       "role": "student",
       "avatar": "💡",
       "isGoogleAuth": true,
-      "googleId": "gid_1788203148735",
-      "createdAt": "2026-08-31T19:05:48.735Z"
+      "createdAt": "2026-08-31T19:05:48.743Z"
+    },
+    {
+      "id": "user_mthlzg6i6uad",
+      "name": "sanket",
+      "email": "sanket@gmail.com",
+      "password": "google_oauth_1788203148714_g0ymbx10z5p",
+      "role": "student",
+      "avatar": "🎓",
+      "isGoogleAuth": true,
+      "createdAt": "2026-08-31T19:05:48.725Z"
     },
     {
       "id": "user_mthm150kydc0",
@@ -61,7 +58,7 @@
       "role": "student",
       "avatar": "🌟",
       "isGoogleAuth": false,
-      "createdAt": "2026-08-31T19:07:07.557Z"
+      "createdAt": "2026-08-31T19:07:07.567Z"
     },
     {
       "id": "user_mthm4tjlre1b",
@@ -71,7 +68,7 @@
       "role": "student",
       "avatar": "🦁",
       "isGoogleAuth": false,
-      "createdAt": "2026-08-31T19:09:59.313Z"
+      "createdAt": "2026-08-31T19:09:59.321Z"
     }
   ],
   "quizzes": [
@@ -222,150 +219,150 @@
       "createdAt": "2026-08-31T18:37:29.449Z"
     },
     {
-      "id": "quiz-general-knowledge",
-      "title": "World General Knowledge & Trivia",
-      "category": "General Knowledge",
-      "testCode": "GK-202",
+      "id": "quiz-science",
+      "title": "General Science & Everyday Technology",
+      "category": "Science",
+      "testCode": "SCI-404",
       "password": "",
-      "icon": "🌐",
-      "difficulty": "Easy",
-      "durationMinutes": 10,
-      "passPercentage": 50,
+      "icon": "🔬",
+      "difficulty": "Medium",
+      "durationMinutes": 12,
+      "passPercentage": 55,
       "totalMarks": 20,
-      "description": "Challenge your awareness on world geography, notable history, famous landmarks, and international facts.",
+      "description": "Explore questions on basic physics principles, chemical reactions, cell biology, and modern computing devices.",
       "questions": [
         {
-          "id": "q_gk1",
-          "question": "Which is the largest ocean on Earth?",
+          "id": "q_s1",
+          "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
           "options": [
-            "Atlantic Ocean",
-            "Indian Ocean",
-            "Pacific Ocean",
-            "Arctic Ocean"
+            "Oxygen",
+            "Carbon Dioxide",
+            "Nitrogen",
+            "Hydrogen"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Plants absorb Carbon Dioxide (CO₂) and water, and use sunlight energy to synthesize glucose and release Oxygen."
+        },
+        {
+          "id": "q_s2",
+          "question": "What is the chemical formula for ordinary table salt?",
+          "options": [
+            "NaCl",
+            "KCl",
+            "NaOH",
+            "CaCO3"
+          ],
+          "correctAnswer": 0,
+          "marks": 2,
+          "explanation": "Table salt is Sodium Chloride, chemical formula NaCl."
+        },
+        {
+          "id": "q_s3",
+          "question": "Which organelle is famously known as the 'Powerhouse of the Cell'?",
+          "options": [
+            "Nucleus",
+            "Ribosome",
+            "Mitochondria",
+            "Endoplasmic Reticulum"
           ],
           "correctAnswer": 2,
           "marks": 2,
-          "explanation": "The Pacific Ocean is the largest and deepest ocean basin on Earth, covering more than 30% of the Earth's total surface area."
+          "explanation": "Mitochondria produce the majority of cellular energy in the form of Adenosine Triphosphate (ATP)."
         },
         {
-          "id": "q_gk2",
-          "question": "Who is known as the inventor of the World Wide Web (WWW)?",
+          "id": "q_s4",
+          "question": "What is the speed of light in a vacuum approximately?",
           "options": [
-            "Bill Gates",
-            "Tim Berners-Lee",
-            "Steve Jobs",
-            "Alan Turing"
+            "300,000 km/s",
+            "150,000 km/s",
+            "3,000 km/s",
+            "30,000 km/s"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": 0,
           "marks": 2,
-          "explanation": "Sir Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN in Switzerland."
+          "explanation": "The speed of light in a vacuum is approximately 299,792 km/s (or ~300,000 km/s / 3 × 10⁸ m/s)."
         },
         {
-          "id": "q_gk3",
-          "question": "What is the capital city of Australia?",
+          "id": "q_s5",
+          "question": "Which element is the most abundant in Earth's atmosphere?",
           "options": [
-            "Sydney",
-            "Melbourne",
-            "Canberra",
-            "Brisbane"
+            "Oxygen (~21%)",
+            "Carbon Dioxide (~0.04%)",
+            "Nitrogen (~78%)",
+            "Argon (~0.93%)"
           ],
           "correctAnswer": 2,
           "marks": 2,
-          "explanation": "Canberra was chosen as the capital city of Australia in 1908 as a compromise between rival cities Sydney and Melbourne."
+          "explanation": "Nitrogen gas makes up roughly 78% of Earth's atmosphere by volume."
         },
         {
-          "id": "q_gk4",
-          "question": "Which country is home to the ancient Wonder of the World: The Great Pyramids of Giza?",
+          "id": "q_s6",
+          "question": "What type of wave is sound?",
           "options": [
-            "Greece",
-            "Egypt",
-            "Jordan",
-            "Peru"
+            "Transverse electromagnetic wave",
+            "Longitudinal mechanical wave",
+            "Gravitational wave",
+            "Surface water wave"
           ],
           "correctAnswer": 1,
           "marks": 2,
-          "explanation": "The Pyramids of Giza are located on the Giza plateau near Cairo, Egypt."
+          "explanation": "Sound is a mechanical longitudinal compression wave that requires a physical medium (solid, liquid, gas) to propagate."
         },
         {
-          "id": "q_gk5",
-          "question": "Which is the longest river in the world?",
+          "id": "q_s7",
+          "question": "What is the unit of electrical resistance?",
           "options": [
-            "Amazon River",
-            "Nile River",
-            "Yangtze River",
-            "Mississippi River"
+            "Ampere",
+            "Volt",
+            "Ohm",
+            "Watt"
+          ],
+          "correctAnswer": 2,
+          "marks": 2,
+          "explanation": "The standard SI unit of electrical resistance is the Ohm (represented by the Greek letter Ω)."
+        },
+        {
+          "id": "q_s8",
+          "question": "Which component of blood is primarily responsible for transporting oxygen?",
+          "options": [
+            "White Blood Cells",
+            "Red Blood Cells (Hemoglobin)",
+            "Platelets",
+            "Blood Plasma"
           ],
           "correctAnswer": 1,
           "marks": 2,
-          "explanation": "The Nile River in northeastern Africa is traditionally considered the longest river in the world, spanning approximately 6,650 km (4,132 miles)."
+          "explanation": "Red blood cells contain the iron-rich protein hemoglobin, which binds oxygen molecules in the lungs and delivers them to bodily tissues."
         },
         {
-          "id": "q_gk6",
-          "question": "In what year did the Apollo 11 mission successfully land astronauts on the Moon?",
+          "id": "q_s9",
+          "question": "What is the pH level of pure, neutral water at 25°C?",
           "options": [
-            "1965",
-            "1969",
-            "1972",
-            "1975"
-          ],
-          "correctAnswer": 1,
-          "marks": 2,
-          "explanation": "Neil Armstrong and Buzz Aldrin landed the Apollo 11 Lunar Module on the Moon on July 20, 1969."
-        },
-        {
-          "id": "q_gk7",
-          "question": "What is the hardest natural substance known on Earth?",
-          "options": [
-            "Titanium",
-            "Diamond",
-            "Graphene",
-            "Tungsten"
-          ],
-          "correctAnswer": 1,
-          "marks": 2,
-          "explanation": "Diamond is the hardest naturally occurring mineral, scoring a 10 (maximum) on the Mohs hardness scale."
-        },
-        {
-          "id": "q_gk8",
-          "question": "Which continent is known as the 'Dark Continent' historically?",
-          "options": [
-            "Asia",
-            "Africa",
-            "South America",
-            "Antarctica"
-          ],
-          "correctAnswer": 1,
-          "marks": 2,
-          "explanation": "Africa was historically referred to as the 'Dark Continent' by 19th-century Europeans due to its unexplored interior terrain."
-        },
-        {
-          "id": "q_gk9",
-          "question": "How many time zones are there in Russia?",
-          "options": [
+            "0",
+            "5",
             "7",
-            "9",
-            "11",
-            "13"
+            "14"
           ],
           "correctAnswer": 2,
           "marks": 2,
-          "explanation": "Spanning across Eastern Europe and Northern Asia, Russia currently spans 11 standard time zones (UTC+2 to UTC+12)."
+          "explanation": "Pure water has a neutral pH of 7. Values below 7 are acidic, while values above 7 are basic/alkaline."
         },
         {
-          "id": "q_gk10",
-          "question": "Which currency is used in Japan?",
+          "id": "q_s10",
+          "question": "Which planet in our solar system is known as the 'Red Planet'?",
           "options": [
-            "Yuan",
-            "Won",
-            "Yen",
-            "Ringgit"
+            "Venus",
+            "Mars",
+            "Jupiter",
+            "Mercury"
           ],
-          "correctAnswer": 2,
+          "correctAnswer": 1,
           "marks": 2,
-          "explanation": "The Japanese Yen (¥ / JPY) is the official legal tender of Japan."
+          "explanation": "Mars is called the Red Planet because iron minerals in its soil oxidize (rust), giving the surface a reddish appearance."
         }
       ],
-      "createdAt": "2026-08-31T18:37:29.452Z"
+      "createdAt": "2026-08-31T18:37:29.457Z"
     },
     {
       "id": "quiz-mathematics",
@@ -514,150 +511,150 @@
       "createdAt": "2026-08-31T18:37:29.455Z"
     },
     {
-      "id": "quiz-science",
-      "title": "General Science & Everyday Technology",
-      "category": "Science",
-      "testCode": "SCI-404",
+      "id": "quiz-general-knowledge",
+      "title": "World General Knowledge & Trivia",
+      "category": "General Knowledge",
+      "testCode": "GK-202",
       "password": "",
-      "icon": "🔬",
-      "difficulty": "Medium",
-      "durationMinutes": 12,
-      "passPercentage": 55,
+      "icon": "🌐",
+      "difficulty": "Easy",
+      "durationMinutes": 10,
+      "passPercentage": 50,
       "totalMarks": 20,
-      "description": "Explore questions on basic physics principles, chemical reactions, cell biology, and modern computing devices.",
+      "description": "Challenge your awareness on world geography, notable history, famous landmarks, and international facts.",
       "questions": [
         {
-          "id": "q_s1",
-          "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
+          "id": "q_gk1",
+          "question": "Which is the largest ocean on Earth?",
           "options": [
-            "Oxygen",
-            "Carbon Dioxide",
-            "Nitrogen",
-            "Hydrogen"
-          ],
-          "correctAnswer": 1,
-          "marks": 2,
-          "explanation": "Plants absorb Carbon Dioxide (CO₂) and water, and use sunlight energy to synthesize glucose and release Oxygen."
-        },
-        {
-          "id": "q_s2",
-          "question": "What is the chemical formula for ordinary table salt?",
-          "options": [
-            "NaCl",
-            "KCl",
-            "NaOH",
-            "CaCO3"
-          ],
-          "correctAnswer": 0,
-          "marks": 2,
-          "explanation": "Table salt is Sodium Chloride, chemical formula NaCl."
-        },
-        {
-          "id": "q_s3",
-          "question": "Which organelle is famously known as the 'Powerhouse of the Cell'?",
-          "options": [
-            "Nucleus",
-            "Ribosome",
-            "Mitochondria",
-            "Endoplasmic Reticulum"
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Pacific Ocean",
+            "Arctic Ocean"
           ],
           "correctAnswer": 2,
           "marks": 2,
-          "explanation": "Mitochondria produce the majority of cellular energy in the form of Adenosine Triphosphate (ATP)."
+          "explanation": "The Pacific Ocean is the largest and deepest ocean basin on Earth, covering more than 30% of the Earth's total surface area."
         },
         {
-          "id": "q_s4",
-          "question": "What is the speed of light in a vacuum approximately?",
+          "id": "q_gk2",
+          "question": "Who is known as the inventor of the World Wide Web (WWW)?",
           "options": [
-            "300,000 km/s",
-            "150,000 km/s",
-            "3,000 km/s",
-            "30,000 km/s"
-          ],
-          "correctAnswer": 0,
-          "marks": 2,
-          "explanation": "The speed of light in a vacuum is approximately 299,792 km/s (or ~300,000 km/s / 3 × 10⁸ m/s)."
-        },
-        {
-          "id": "q_s5",
-          "question": "Which element is the most abundant in Earth's atmosphere?",
-          "options": [
-            "Oxygen (~21%)",
-            "Carbon Dioxide (~0.04%)",
-            "Nitrogen (~78%)",
-            "Argon (~0.93%)"
-          ],
-          "correctAnswer": 2,
-          "marks": 2,
-          "explanation": "Nitrogen gas makes up roughly 78% of Earth's atmosphere by volume."
-        },
-        {
-          "id": "q_s6",
-          "question": "What type of wave is sound?",
-          "options": [
-            "Transverse electromagnetic wave",
-            "Longitudinal mechanical wave",
-            "Gravitational wave",
-            "Surface water wave"
+            "Bill Gates",
+            "Tim Berners-Lee",
+            "Steve Jobs",
+            "Alan Turing"
           ],
           "correctAnswer": 1,
           "marks": 2,
-          "explanation": "Sound is a mechanical longitudinal compression wave that requires a physical medium (solid, liquid, gas) to propagate."
+          "explanation": "Sir Tim Berners-Lee invented the World Wide Web in 1989 while working at CERN in Switzerland."
         },
         {
-          "id": "q_s7",
-          "question": "What is the unit of electrical resistance?",
+          "id": "q_gk3",
+          "question": "What is the capital city of Australia?",
           "options": [
-            "Ampere",
-            "Volt",
-            "Ohm",
-            "Watt"
+            "Sydney",
+            "Melbourne",
+            "Canberra",
+            "Brisbane"
           ],
           "correctAnswer": 2,
           "marks": 2,
-          "explanation": "The standard SI unit of electrical resistance is the Ohm (represented by the Greek letter Ω)."
+          "explanation": "Canberra was chosen as the capital city of Australia in 1908 as a compromise between rival cities Sydney and Melbourne."
         },
         {
-          "id": "q_s8",
-          "question": "Which component of blood is primarily responsible for transporting oxygen?",
+          "id": "q_gk4",
+          "question": "Which country is home to the ancient Wonder of the World: The Great Pyramids of Giza?",
           "options": [
-            "White Blood Cells",
-            "Red Blood Cells (Hemoglobin)",
-            "Platelets",
-            "Blood Plasma"
+            "Greece",
+            "Egypt",
+            "Jordan",
+            "Peru"
           ],
           "correctAnswer": 1,
           "marks": 2,
-          "explanation": "Red blood cells contain the iron-rich protein hemoglobin, which binds oxygen molecules in the lungs and delivers them to bodily tissues."
+          "explanation": "The Pyramids of Giza are located on the Giza plateau near Cairo, Egypt."
         },
         {
-          "id": "q_s9",
-          "question": "What is the pH level of pure, neutral water at 25°C?",
+          "id": "q_gk5",
+          "question": "Which is the longest river in the world?",
           "options": [
-            "0",
-            "5",
+            "Amazon River",
+            "Nile River",
+            "Yangtze River",
+            "Mississippi River"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "The Nile River in northeastern Africa is traditionally considered the longest river in the world, spanning approximately 6,650 km (4,132 miles)."
+        },
+        {
+          "id": "q_gk6",
+          "question": "In what year did the Apollo 11 mission successfully land astronauts on the Moon?",
+          "options": [
+            "1965",
+            "1969",
+            "1972",
+            "1975"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Neil Armstrong and Buzz Aldrin landed the Apollo 11 Lunar Module on the Moon on July 20, 1969."
+        },
+        {
+          "id": "q_gk7",
+          "question": "What is the hardest natural substance known on Earth?",
+          "options": [
+            "Titanium",
+            "Diamond",
+            "Graphene",
+            "Tungsten"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Diamond is the hardest naturally occurring mineral, scoring a 10 (maximum) on the Mohs hardness scale."
+        },
+        {
+          "id": "q_gk8",
+          "question": "Which continent is known as the 'Dark Continent' historically?",
+          "options": [
+            "Asia",
+            "Africa",
+            "South America",
+            "Antarctica"
+          ],
+          "correctAnswer": 1,
+          "marks": 2,
+          "explanation": "Africa was historically referred to as the 'Dark Continent' by 19th-century Europeans due to its unexplored interior terrain."
+        },
+        {
+          "id": "q_gk9",
+          "question": "How many time zones are there in Russia?",
+          "options": [
             "7",
-            "14"
+            "9",
+            "11",
+            "13"
           ],
           "correctAnswer": 2,
           "marks": 2,
-          "explanation": "Pure water has a neutral pH of 7. Values below 7 are acidic, while values above 7 are basic/alkaline."
+          "explanation": "Spanning across Eastern Europe and Northern Asia, Russia currently spans 11 standard time zones (UTC+2 to UTC+12)."
         },
         {
-          "id": "q_s10",
-          "question": "Which planet in our solar system is known as the 'Red Planet'?",
+          "id": "q_gk10",
+          "question": "Which currency is used in Japan?",
           "options": [
-            "Venus",
-            "Mars",
-            "Jupiter",
-            "Mercury"
+            "Yuan",
+            "Won",
+            "Yen",
+            "Ringgit"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": 2,
           "marks": 2,
-          "explanation": "Mars is called the Red Planet because iron minerals in its soil oxidize (rust), giving the surface a reddish appearance."
+          "explanation": "The Japanese Yen (¥ / JPY) is the official legal tender of Japan."
         }
       ],
-      "createdAt": "2026-08-31T18:37:29.457Z"
+      "createdAt": "2026-08-31T18:37:29.452Z"
     },
     {
       "id": "quiz-english-grammar",
@@ -808,28 +805,28 @@
   ],
   "attempts": [
     {
-      "id": "att_1",
-      "userId": "user_student_1",
-      "userName": "Alex Johnson",
+      "id": "att_4",
+      "userId": "user_seed_4",
+      "userName": "Sophia Chen",
       "userEmail": "",
-      "userAvatar": "🎓",
-      "quizId": "quiz-java-core",
-      "quizTitle": "Java Programming Fundamentals",
-      "category": "Programming",
+      "userAvatar": "💡",
+      "quizId": "quiz-mathematics",
+      "quizTitle": "Mathematics & Quantitative Aptitude",
+      "category": "Mathematics",
       "testCode": "",
       "difficulty": "Medium",
-      "score": 18,
+      "score": 20,
       "totalMarks": 20,
-      "percentage": 90,
+      "percentage": 100,
       "passed": true,
       "passPercentage": 60,
       "totalQuestions": 10,
-      "correctCount": 9,
-      "wrongCount": 1,
+      "correctCount": 10,
+      "wrongCount": 0,
       "unansweredCount": 0,
-      "timeSpentSeconds": 420,
+      "timeSpentSeconds": 510,
       "answersBreakdown": [],
-      "completedAt": "2026-08-30T14:22:00.000Z"
+      "completedAt": "2026-08-30T16:05:00.000Z"
     },
     {
       "id": "att_2",
@@ -856,52 +853,28 @@
       "completedAt": "2026-08-29T11:15:00.000Z"
     },
     {
-      "id": "att_3",
-      "userId": "user_seed_3",
-      "userName": "David Miller",
+      "id": "att_1",
+      "userId": "user_student_1",
+      "userName": "Alex Johnson",
       "userEmail": "",
-      "userAvatar": "🚀",
-      "quizId": "quiz-general-knowledge",
-      "quizTitle": "World General Knowledge & Trivia",
-      "category": "General Knowledge",
+      "userAvatar": "🎓",
+      "quizId": "quiz-java-core",
+      "quizTitle": "Java Programming Fundamentals",
+      "category": "Programming",
       "testCode": "",
       "difficulty": "Medium",
-      "score": 16,
+      "score": 18,
       "totalMarks": 20,
-      "percentage": 80,
+      "percentage": 90,
       "passed": true,
       "passPercentage": 60,
       "totalQuestions": 10,
-      "correctCount": 8,
-      "wrongCount": 2,
+      "correctCount": 9,
+      "wrongCount": 1,
       "unansweredCount": 0,
-      "timeSpentSeconds": 290,
+      "timeSpentSeconds": 420,
       "answersBreakdown": [],
-      "completedAt": "2026-08-30T09:40:00.000Z"
-    },
-    {
-      "id": "att_4",
-      "userId": "user_seed_4",
-      "userName": "Sophia Chen",
-      "userEmail": "",
-      "userAvatar": "💡",
-      "quizId": "quiz-mathematics",
-      "quizTitle": "Mathematics & Quantitative Aptitude",
-      "category": "Mathematics",
-      "testCode": "",
-      "difficulty": "Medium",
-      "score": 20,
-      "totalMarks": 20,
-      "percentage": 100,
-      "passed": true,
-      "passPercentage": 60,
-      "totalQuestions": 10,
-      "correctCount": 10,
-      "wrongCount": 0,
-      "unansweredCount": 0,
-      "timeSpentSeconds": 510,
-      "answersBreakdown": [],
-      "completedAt": "2026-08-30T16:05:00.000Z"
+      "completedAt": "2026-08-30T14:22:00.000Z"
     },
     {
       "id": "att_5",
@@ -926,6 +899,30 @@
       "timeSpentSeconds": 340,
       "answersBreakdown": [],
       "completedAt": "2026-08-31T08:12:00.000Z"
+    },
+    {
+      "id": "att_3",
+      "userId": "user_seed_3",
+      "userName": "David Miller",
+      "userEmail": "",
+      "userAvatar": "🚀",
+      "quizId": "quiz-general-knowledge",
+      "quizTitle": "World General Knowledge & Trivia",
+      "category": "General Knowledge",
+      "testCode": "",
+      "difficulty": "Medium",
+      "score": 16,
+      "totalMarks": 20,
+      "percentage": 80,
+      "passed": true,
+      "passPercentage": 60,
+      "totalQuestions": 10,
+      "correctCount": 8,
+      "wrongCount": 2,
+      "unansweredCount": 0,
+      "timeSpentSeconds": 290,
+      "answersBreakdown": [],
+      "completedAt": "2026-08-30T09:40:00.000Z"
     }
   ],
   "settings": {
